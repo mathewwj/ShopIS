@@ -23,21 +23,43 @@ class Program
 
     private static void ParseGraph(IEnumerable<XElement> paths, IEnumerable<XElement> regals)
     {
-        var pointSet = new HashSet<Point>();
+        var points = new HashSet<Point>();
+        var edges = new HashSet<Edge>();
 
         foreach (var path in paths)
         {
             var movement = (string) path.Attribute("d");
-            ParseMovement(movement, out var a, out var b);
+            ParseMovement(movement, out var start, out var end);
 
-            pointSet.Add(a);
-            pointSet.Add(b);
+            if (points.TryGetValue(start, out var insideStart))
+                start = insideStart;
+            else
+                points.Add(start);
+            if (points.TryGetValue(end, out var insideEnd))
+                end = insideEnd;
+            else
+                points.Add(end);
+
+            var edge = new Edge
+            {
+                Id = (string)path.Attribute("id"),
+                Start = start,
+                End = end,
+            };
+            edges.Add(edge);
+            start.Edges.Add(edge);
+            end.Edges.Add(edge);
         }
 
-        foreach (var point in pointSet)
+        foreach (var point in points)
         {
             Console.WriteLine($"x: {point.X}, y: {point.Y}");
+            foreach (var edge in point.Edges)
+            {
+                Console.WriteLine($"    id: {edge.Id}");
+            }
         }
+        
 
     }
 
