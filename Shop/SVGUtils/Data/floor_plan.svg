@@ -24,15 +24,15 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
      showgrid="true"
-     inkscape:zoom="0.70710678"
-     inkscape:cx="663.26616"
-     inkscape:cy="702.15703"
+     inkscape:zoom="4.0000001"
+     inkscape:cx="821.24998"
+     inkscape:cy="361.37499"
      inkscape:window-width="1920"
      inkscape:window-height="1009"
      inkscape:window-x="-8"
-     inkscape:window-y="1192"
+     inkscape:window-y="1072"
      inkscape:window-maximized="1"
-     inkscape:current-layer="Regals">
+     inkscape:current-layer="Paths">
     <inkscape:grid
        id="grid1"
        units="mm"
@@ -70,11 +70,11 @@
        id="path21" />
     <path
        style="fill:none;stroke:#0400ff;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
-       d="m 39.999999,125 h 25"
+       d="M 39.999999,125 h 25"
        id="path22" />
     <path
        style="fill:none;stroke:#0400ff;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
-       d="m 64.999999,75 h -25"
+       d="M 64.999999,75 h -25"
        id="path23" />
     <path
        style="fill:none;stroke:#0400ff;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
@@ -94,7 +94,7 @@
        id="path27" />
     <path
        style="fill:none;stroke:#0400ff;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
-       d="m 165,75 h 25"
+       d="M 165,75 h 25"
        id="path30" />
     <path
        style="fill:none;stroke:#0400ff;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
@@ -110,7 +110,7 @@
        id="path34" />
     <path
        style="fill:none;stroke:#0400ff;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
-       d="m 260,75 v 25"
+       d="M 260,75 v 25"
        id="path35" />
     <path
        style="fill:none;stroke:#0400ff;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
@@ -122,15 +122,15 @@
        id="path37" />
     <path
        style="fill:none;stroke:#0400ff;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
-       d="m 39.999999,125 v 25"
+       d="M 39.999999,125 v 25"
        id="path38" />
     <path
        style="fill:none;stroke:#0400ff;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
-       d="m 39.999999,100 v 25"
+       d="M 39.999999,100 v 25"
        id="path39" />
     <path
        style="fill:none;stroke:#0400ff;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
-       d="m 39.999999,75 v 25"
+       d="M 39.999999,75 v 25"
        id="path40" />
     <path
        style="fill:none;stroke:#0400ff;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
@@ -170,11 +170,11 @@
        id="path49" />
     <path
        style="fill:none;stroke:#0400ff;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
-       d="m 250,30 h 10"
+       d="M 250,30 h 10"
        id="path50" />
     <path
        style="fill:none;stroke:#0400ff;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
-       d="m 200,30 h 50"
+       d="M 200,30 h 50"
        id="path51" />
     <path
        style="fill:none;stroke:#0400ff;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
@@ -194,23 +194,15 @@
        id="path59" />
     <path
        style="fill:none;stroke:#0400ff;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
-       d="m 115,165 h 75"
+       d="M 115,165 h 75"
        id="path60" />
-    <path
-       style="fill:none;stroke:#0400ff;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
-       d="m 190,165 h 20"
-       id="path61" />
-    <path
-       style="fill:none;stroke:#0400ff;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
-       d="m 235,125 v 25"
-       id="path62" />
     <path
        style="fill:none;stroke:#0400ff;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
        d="M 260,125 V 100"
        id="path63" />
     <path
        style="fill:none;stroke:#0400ff;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
-       d="m 190,125 h 45"
+       d="M 190,125 h 45"
        id="path64" />
     <path
        style="fill:none;stroke:#0400ff;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
@@ -218,7 +210,7 @@
        id="path65" />
     <path
        style="fill:none;stroke:#0400ff;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
-       d="m 115,75 v 50"
+       d="M 115,75 v 50"
        id="path66" />
     <path
        style="fill:none;stroke:#0400ff;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
@@ -226,40 +218,52 @@
        id="path67" />
     <path
        style="fill:none;stroke:#0400ff;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
-       d="m 165,125 h 25"
+       d="M 165,125 h 25"
        id="path68" />
     <path
        style="fill:none;stroke:#0400ff;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
-       d="m 190,75 v 50"
+       d="M 190,75 v 50"
        id="path69" />
     <path
        style="fill:none;stroke:#0400ff;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
-       d="m 50,30 h 50"
+       d="M 50,30 h 50"
        id="path70" />
     <path
        style="fill:none;stroke:#0400ff;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
-       d="m 100,30 h 15"
+       d="M 100,30 h 15"
        id="path71" />
     <path
        style="fill:none;stroke:#0400ff;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
-       d="m 115,30 h 35"
+       d="M 115,30 h 35"
        id="path72" />
     <path
        style="fill:none;stroke:#0400ff;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
-       d="m 150,30 h 40"
+       d="M 150,30 h 40"
        id="path73" />
     <path
        style="fill:none;stroke:#0400ff;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
-       d="m 190,30 h 10"
+       d="M 190,30 h 10"
        id="path74" />
     <path
        style="fill:none;stroke:#0400ff;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
-       d="m 115,75 h 30"
+       d="M 115,75 h 30"
        id="path75" />
     <path
        style="fill:none;stroke:#0400ff;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
-       d="m 235,75 h 25"
+       d="M 235,75 h 25"
        id="path76" />
+    <path
+       style="fill:none;stroke-width:1.01;stroke:#0400ff;stroke-opacity:1;stroke-linecap:round"
+       d="M 235,170 v -5"
+       id="path1" />
+    <path
+       style="fill:none;stroke:#0400ff;stroke-width:1.01;stroke-linecap:round"
+       d="m 190,165 h 45"
+       id="path2" />
+    <path
+       style="fill:none;stroke:#0400ff;stroke-width:1.01;stroke-linecap:round"
+       d="M 235,165 V 125"
+       id="path3" />
   </g>
   <g
      inkscape:groupmode="layer"
@@ -426,13 +430,13 @@
        y="50.025116"
        inkscape:label="20" />
     <rect
-        style="fill:none;stroke:#0eff00;stroke-width:0.873244;stroke-opacity:1"
-        id="cash"
-        width="49.999992"
-        height="29.999994"
-        x="210"
-        y="150"
-        inkscape:label="cash" />
+       style="fill:none;stroke:#0eff00;stroke-width:1.01;stroke-dasharray:none;stroke-opacity:1"
+       id="cash"
+       width="39.999996"
+       height="24.775202"
+       x="230"
+       y="170"
+       inkscape:label="cash" />
   </g>
   <g
      inkscape:label="Layer 1"

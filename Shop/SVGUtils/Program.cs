@@ -19,7 +19,13 @@ class Program
         var mainLayer = doc.Descendants()
             .FirstOrDefault(e => e.Name.LocalName == "g" && 
                                  (string) e.Attribute("id") == "Main");
-        ParseGraph(pathLayer.Elements(), regalLayer.Elements(), mainLayer.Elements());
+        var graph = ParseGraph(pathLayer.Elements(), regalLayer.Elements(), mainLayer.Elements());
+
+        var path = graph.GetPath(new List<Point>(){});
+        foreach (var edge in path)
+        {
+            Console.WriteLine($"{edge.Id}");
+        }
     }
 
     private static Graph ParseGraph(IEnumerable<XElement> paths, IEnumerable<XElement> regals, IEnumerable<XElement> main)
@@ -37,6 +43,7 @@ class Program
                 start = insideStart;
             else
                 points.Add(start);
+
             if (points.TryGetValue(end, out var insideEnd))
                 end = insideEnd;
             else
@@ -54,7 +61,7 @@ class Program
         }
         
         // parse regals
-        var endPoints = points.Where(p => p.Edges.Count == 1);
+        var endPoints = points.Where(p => p.Edges.Count == 1).ToList();
         foreach (var regal in regals)
         {
             var x0 = Double.Parse((string) regal.Attribute("x"));
@@ -76,7 +83,7 @@ class Program
         var special = points.First(p => p.Edges.Count == 1 && p.SpecialFeature.Equals(""));
         special.SpecialFeature = "in";
 
-        return new Graph(points, edges, special, new HashSet<Point>(endPoints.Where(p => p.SpecialFeature.Equals("out"))));
+        return new Graph(points, edges, special, endPoints.First(p => p.SpecialFeature.Equals("cash")));
     }
 
 
@@ -118,6 +125,5 @@ class Program
 
         start = new Point { X = startX, Y = startY };
         end = new Point { X = endX, Y = endY };
-        
     }
 }

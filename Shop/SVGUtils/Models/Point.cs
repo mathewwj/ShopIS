@@ -15,7 +15,7 @@ public class Point : IEquatable<Point>
     {
         if (ReferenceEquals(null, other)) return false;
         if (ReferenceEquals(this, other)) return true;
-        return this.PointDist(other) < 10e-1;
+        return this.Distance(other) < 1;
     }
 
     public override int GetHashCode()
@@ -29,11 +29,16 @@ public class Point : IEquatable<Point>
         if (ReferenceEquals(this, obj)) return true;
         return obj.GetType() == this.GetType() && Equals(obj as Point);
     }
+
+    public override string ToString()
+    {
+        return $"{X} {Y}";
+    }
 }
 
 public static class PointUtils
 {
-    public static double PointDist(this Point p1, Point p2)
+    public static double Distance(this Point p1, Point p2)
     {
         return Math.Sqrt(Math.Pow(p1.X - p2.X, 2) + Math.Pow(p1.Y - p2.Y, 2));
     }
