@@ -1,7 +1,7 @@
 ﻿using System.Xml.Linq;
-using ConsoleApp1.Models;
+using SVGUtils.Models;
 
-namespace ConsoleApp1;
+namespace SVGUtils;
 
 // TODO refactor
 public class SvgMapManager: ISvgMapManager
@@ -21,10 +21,13 @@ public class SvgMapManager: ISvgMapManager
         _graph = ParseGraph(pathLayer.Elements(), regalLayer.Elements());
     }
 
-    public void CreatePath(string outputPath, List<int> shelfIds)
+    public void CreatePath(string outputPath, IEnumerable<int> shelfIds)
     {
-        // TODO create conversion
-        _graph.GetPath(new List<Point>());
+        var path = _graph.GetPath(shelfIds);
+        foreach (var edge in path)
+        {
+            Console.WriteLine($"{edge.Id}");
+        }
     }
     
     private static Graph ParseGraph(IEnumerable<XElement> paths, IEnumerable<XElement> regals)

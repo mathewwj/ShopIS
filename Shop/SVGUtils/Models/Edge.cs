@@ -1,6 +1,6 @@
-﻿namespace ConsoleApp1.Models;
+﻿namespace SVGUtils.Models;
 
-public class Edge : IEquatable<Edge>
+internal class Edge : IEquatable<Edge>
 {
     public string Id { get; set; }
     public Point Start { get; set; }
@@ -27,7 +27,7 @@ public class Edge : IEquatable<Edge>
     }
 }
 
-public static class EdgeUtils
+internal  static class EdgeUtils
 {
     public static Point GetOpposite(this Edge edge, Point point)
     {

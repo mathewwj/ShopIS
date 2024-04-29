@@ -1,20 +1,25 @@
-﻿using ConsoleApp1.Models;
+﻿using SVGUtils.Models;
 
-namespace ConsoleApp1;
+namespace SVGUtils;
 
-public class Graph
+internal class Graph
 {
     public ISet<Point> Points { get; private set; }
-    public ISet<Edge> Edges { get;  }
+    public ISet<Edge> Edges { get; }
     public Point Initial { get; private set; }
     public Point Terminal { get; private set; }
 
-    public Graph(ISet<Point> points, ISet<Edge> edges, Point initial, Point terminal)
+    internal Graph(ISet<Point> points, ISet<Edge> edges, Point initial, Point terminal)
     {
         Points = points;
         Edges = edges;
         Initial = initial;
         Terminal = terminal;
+    }
+
+    internal List<Edge> GetPath(IEnumerable<int> shelfIds)
+    {
+        return GetPath(shelfIds.Select(id => Points.First(p => p.SpecialFeature.Equals(id.ToString()))));
     }
 
 
@@ -26,10 +31,6 @@ public class Graph
 
         for (int i = 0; i < points.Count - 1; i++)
         {
-            if (points[i].Edges.Count == 0 || points[i].Edges.Count == 0)
-            {
-                Console.WriteLine("get path");
-            }
             path.AddRange(GetBestPath(points[i], points[i+1]));
         }
         
@@ -71,10 +72,6 @@ public class Graph
             foreach (var edge in current.Edges)
             {
                 var neighbor = edge.GetOpposite(current);
-                if (neighbor.Equals(current))
-                {
-                    Console.WriteLine("neigbour");
-                }
                 var alt = distances[current] + current.Distance(neighbor);
                 if (alt < distances[neighbor])
                 {

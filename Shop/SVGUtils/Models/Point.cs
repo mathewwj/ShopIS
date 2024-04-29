@@ -1,9 +1,8 @@
-﻿namespace ConsoleApp1.Models;
+﻿namespace SVGUtils.Models;
 
-public class Point : IEquatable<Point>
+internal  class Point : IEquatable<Point>
 {
     public double X { get; set; }
-
     public double Y { get; set; }
 
     // start, end, regal id
@@ -36,11 +35,10 @@ public class Point : IEquatable<Point>
     }
 }
 
-public static class PointUtils
+internal  static class PointUtils
 {
     public static double Distance(this Point p1, Point p2)
     {
         return Math.Sqrt(Math.Pow(p1.X - p2.X, 2) + Math.Pow(p1.Y - p2.Y, 2));
     }
 }
-
