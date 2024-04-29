@@ -10,7 +10,7 @@ internal class Edge : IEquatable<Edge>
     {
         if (ReferenceEquals(null, other)) return false;
         if (ReferenceEquals(this, other)) return true;
-        return Id == other.Id;
+        return Id.Equals(other.Id);
     }
 
     public override bool Equals(object? obj)
@@ -23,7 +23,7 @@ internal class Edge : IEquatable<Edge>
 
     public override int GetHashCode()
     {
-        return HashCode.Combine(Id, Start, End);
+        return HashCode.Combine(Id);
     }
 }
 

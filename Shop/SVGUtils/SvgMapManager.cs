@@ -7,15 +7,16 @@ namespace SVGUtils;
 public class SvgMapManager: ISvgMapManager
 {
     private Graph _graph;
+    private XDocument _xDocument;
     
     public void LoadMap(string pathFile)
     {
-        var doc = XDocument.Load(pathFile);
+        _xDocument = XDocument.Load(pathFile);
 
-        var pathLayer = doc.Descendants()
+        var pathLayer = _xDocument.Descendants()
             .FirstOrDefault(e => e.Name.LocalName == "g" && 
                                  (string) e.Attribute("id") == "Paths");
-        var regalLayer = doc.Descendants()
+        var regalLayer = _xDocument.Descendants()
             .FirstOrDefault(e => e.Name.LocalName == "g" && 
                                  (string) e.Attribute("id") == "Regals");
         _graph = ParseGraph(pathLayer.Elements(), regalLayer.Elements());
@@ -24,11 +25,44 @@ public class SvgMapManager: ISvgMapManager
     public void CreatePath(string outputPath, IEnumerable<int> shelfIds)
     {
         var path = _graph.GetPath(shelfIds);
-        foreach (var edge in path)
+        // foreach (var edge in path)
+        // {
+        //     Console.WriteLine($"{edge.Id}");
+        // }
+        
+        var pathLayer = _xDocument.Descendants()
+            .FirstOrDefault(e => e.Name.LocalName == "g" && 
+                                 (string) e.Attribute("id") == "Paths");
+        
+        foreach (var element in pathLayer.Elements())
         {
-            Console.WriteLine($"{edge.Id}");
+            if (path.FirstOrDefault(x => x.Id.Equals((string)element.Attribute("id"))) == null)
+            {
+                element.SetAttributeValue("style", ChangeStrokeColor(element.Attribute("style").Value, "none"));
+            }
         }
+        _xDocument.Save(outputPath);
+        
+        var content = File.ReadAllText(outputPath);
+        var modifiedContent = content.Replace("<svg:", "<").Replace("</svg:", "</");
+        File.WriteAllText(outputPath, modifiedContent);
     }
+    static string ChangeStrokeColor(string styleAttr, string newColor)
+    {
+        // Find the stroke color in the style attribute
+        int startIndex = styleAttr.IndexOf("stroke:");
+        if (startIndex == -1)
+            return styleAttr;
+
+        startIndex += 7; // Move to the start of the color code
+        int endIndex = styleAttr.IndexOf(";", startIndex);
+        if (endIndex == -1)
+            endIndex = styleAttr.Length;
+
+        // Replace the stroke color with the new color
+        string oldColor = styleAttr.Substring(startIndex, endIndex - startIndex);
+        return styleAttr.Replace(oldColor, newColor);
+    }    
     
     private static Graph ParseGraph(IEnumerable<XElement> paths, IEnumerable<XElement> regals)
     {
