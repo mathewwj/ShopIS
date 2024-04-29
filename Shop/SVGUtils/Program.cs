@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Xml.Linq;
+using ConsoleApp1;
 using ConsoleApp1.Models;
 
 class Program
@@ -18,14 +19,15 @@ class Program
         var mainLayer = doc.Descendants()
             .FirstOrDefault(e => e.Name.LocalName == "g" && 
                                  (string) e.Attribute("id") == "Main");
-        ParseGraph(pathLayer.Elements(), regalLayer.Elements());
+        ParseGraph(pathLayer.Elements(), regalLayer.Elements(), mainLayer.Elements());
     }
 
-    private static void ParseGraph(IEnumerable<XElement> paths, IEnumerable<XElement> regals)
+    private static Graph ParseGraph(IEnumerable<XElement> paths, IEnumerable<XElement> regals, IEnumerable<XElement> main)
     {
         var points = new HashSet<Point>();
         var edges = new HashSet<Edge>();
 
+        // parse path
         foreach (var path in paths)
         {
             var movement = (string) path.Attribute("d");
@@ -50,17 +52,31 @@ class Program
             start.Edges.Add(edge);
             end.Edges.Add(edge);
         }
-
-        foreach (var point in points)
+        
+        // parse regals
+        var endPoints = points.Where(p => p.Edges.Count == 1);
+        foreach (var regal in regals)
         {
-            Console.WriteLine($"x: {point.X}, y: {point.Y}");
-            foreach (var edge in point.Edges)
+            var x0 = Double.Parse((string) regal.Attribute("x"));
+            var y0 = Double.Parse((string) regal.Attribute("y"));
+            var x1 = x0 + Double.Parse((string) regal.Attribute("width"));
+            var y1 = y0 + Double.Parse((string) regal.Attribute("height"));
+            var regalId = (string)regal.Attribute("id");
+            var tolerance = 1.0d;
+            
+            var inside = (Point p) => p.X >= x0 - tolerance && p.X <= x1 + tolerance && 
+                                      p.Y >= y0 - tolerance && p.Y <= y1 + tolerance;
+
+            foreach (var regalPoint in endPoints.Where(p => inside(p)))
             {
-                Console.WriteLine($"    id: {edge.Id}");
+                regalPoint.SpecialFeature = regalId;   
             }
         }
         
+        var special = points.First(p => p.Edges.Count == 1 && p.SpecialFeature.Equals(""));
+        special.SpecialFeature = "in";
 
+        return new Graph(points, edges, special, new HashSet<Point>(endPoints.Where(p => p.SpecialFeature.Equals("out"))));
     }
 
 

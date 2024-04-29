@@ -15,7 +15,7 @@ public class Point : IEquatable<Point>
     {
         if (ReferenceEquals(null, other)) return false;
         if (ReferenceEquals(this, other)) return true;
-        return this.PointDist(other) < 10e-3;
+        return this.PointDist(other) < 10e-1;
     }
 
     public override int GetHashCode()
