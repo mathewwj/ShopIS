@@ -11,6 +11,6 @@ class Program
         var svgMapManager = new SvgMapManager();
         
         svgMapManager.LoadMap("./../../../Data/floor_plan.svg");
-        svgMapManager.CreatePath("aa", new List<int>{1, 6});
+        svgMapManager.CreatePath("aa", new List<int>{1, 2, 3, 4, 5, 6, 19});
     }
 }

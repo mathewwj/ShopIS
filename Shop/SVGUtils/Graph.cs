@@ -1,4 +1,5 @@
-﻿using SVGUtils.Models;
+﻿using System.Net.NetworkInformation;
+using SVGUtils.Models;
 
 namespace SVGUtils;
 
@@ -43,8 +44,9 @@ internal class Graph
     {
         List<Point> sorted = new();
         sorted.Add(Initial);
-        
-        for (int i = 0; i < points.Count; i++)
+
+        int count = points.Count;
+        for (int i = 0; i < count; i++)
         {
             var closestPoint = points.OrderBy(p => sorted.Last().Distance(p)).First();
             sorted.Add(closestPoint);
