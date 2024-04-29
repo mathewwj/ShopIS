@@ -1,13 +1,41 @@
 ﻿namespace ConsoleApp1.Models;
 
-public class Point
+public class Point : IEquatable<Point>
 {
-    public float X { get; set; }
-    public float Y { get; set; }
+    public double X { get; set; }
+
+    public double Y { get; set; }
+
     // start, end, regal id
     public string SpecialFeature { get; set; } = "";
-    public List<Edge> Edges { get; }  = new();
-    
-    
+    public List<Edge> Edges { get; } = new();
+
+
+    public bool Equals(Point? other)
+    {
+        if (ReferenceEquals(null, other)) return false;
+        if (ReferenceEquals(this, other)) return true;
+        return this.PointDist(other) < 10e-3;
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(X, Y);
+    }
+
+    public override bool Equals(object obj)
+    {
+        if (ReferenceEquals(null, obj)) return false;
+        if (ReferenceEquals(this, obj)) return true;
+        return obj.GetType() == this.GetType() && Equals(obj as Point);
+    }
+}
+
+public static class PointUtils
+{
+    public static double PointDist(this Point p1, Point p2)
+    {
+        return Math.Sqrt(Math.Pow(p1.X - p2.X, 2) + Math.Pow(p1.Y - p2.Y, 2));
+    }
 }
 
