@@ -2,6 +2,7 @@
 
 namespace api.Models;
 
+// todo rename table
 [Table("product_categories")]
 public class Category
 {
