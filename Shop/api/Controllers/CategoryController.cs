@@ -1,4 +1,5 @@
 ﻿using api.Dto.Category;
+using api.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controllers;
@@ -7,7 +8,12 @@ namespace api.Controllers;
 [ApiController]
 public class CategoryController : ControllerBase
 {
-    // TODO add repository
+    private ICategoryService _categoryService;
+
+    public CategoryController(ICategoryService categoryService)
+    {
+        _categoryService = categoryService;
+    }
 
 
     [HttpGet]
