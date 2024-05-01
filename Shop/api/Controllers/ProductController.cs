@@ -23,4 +23,16 @@ public class ProductController : ControllerBase
         return Ok(categoriesDto);
     }
     
+    [HttpGet]
+    [Route("{id:int}")]
+    public async Task<IActionResult> GetById([FromRoute] int id)
+    {
+        var inMemoryProduct = await _productService.GetByIdAsync(id);
+        if (inMemoryProduct == null)
+        {
+            return NotFound();
+        }
+        return Ok(inMemoryProduct.ToProductDto());
+    }
+    
 }
