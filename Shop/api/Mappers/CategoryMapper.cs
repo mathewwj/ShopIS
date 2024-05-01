@@ -14,11 +14,18 @@ public static class CategoryMapper
         };
     }
 
-    public static Category ToCategoryFromCreateDto(this CreateCategoryDto createCategoryDto, int categoryId)
+    public static Category ToCategoryFromCreateDto(this CreateCategoryDto createCategoryDto)
     {
         return new Category
         {
-            Id = categoryId,
+            Name = createCategoryDto.Name
+        };
+    }
+    
+    public static Category ToCategoryFromUpdateDto(this UpdateCategoryDto createCategoryDto)
+    {
+        return new Category
+        {
             Name = createCategoryDto.Name
         };
     }

@@ -44,16 +44,21 @@ public class CategoryService : ICategoryService
         return inMemoryCategory;
     }
 
-    public async Task<Category?> Delete(int id)
+    public async Task<Category?> DeleteAsync(int id)
     {
         var inMemoryCategory = await GetByIdAsync(id);
         if (inMemoryCategory == null)
         {
-            return null;;
+            return null;
         }
 
         _context.Categories.Remove(inMemoryCategory);
         await _context.SaveChangesAsync();
         return inMemoryCategory;
+    }
+
+    public async Task<bool> IsExists(int id)
+    {
+        return await GetByIdAsync(id) != null;
     }
 }

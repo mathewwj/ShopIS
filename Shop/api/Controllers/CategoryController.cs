@@ -29,27 +29,37 @@ public class CategoryController : ControllerBase
     [Route("{id:int}")]
     public async Task<IActionResult> GetById([FromRoute] int id)
     {
-        return Ok();
+        var inMemoryCategory = await _categoryService.GetByIdAsync(id);
+        if (inMemoryCategory == null)
+        {
+            return NotFound();
+        }
+        return Ok(inMemoryCategory.ToCategoryDto());
     }
     
-    // todo route
-    [HttpPost("{id:int}")]
-    public async Task<IActionResult> Create([FromRoute] int id, [FromBody] CreateCategoryDto categoryDto)
+    [HttpPost]
+    public async Task<IActionResult> Create([FromBody] CreateCategoryDto categoryDto)
     {
-        return Ok();
+        var newCategory = categoryDto.ToCategoryFromCreateDto();
+        var inMemoryCategory = await _categoryService.CreateAsync(newCategory);
+        return CreatedAtAction(nameof(GetById), new { id = inMemoryCategory.Id }, inMemoryCategory.ToCategoryDto());
     }
 
     [HttpPut]
     [Route("{id:int}")]
     public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateCategoryDto categoryDto)
     {
-        return Ok();
+        var inMemoryCategory = await _categoryService.UpdateAsync(id, categoryDto.ToCategoryFromUpdateDto());
+        
+        return inMemoryCategory == null? NotFound(): Ok(inMemoryCategory.ToCategoryDto());
     }
 
     [HttpDelete]
     [Route("{id:int}")]
     public async Task<IActionResult> Delete([FromRoute] int id)
     {
-        return NoContent();
+        var inMemoryCategory = await _categoryService.DeleteAsync(id);
+
+        return inMemoryCategory == null? NotFound(): NoContent();
     }
 }
