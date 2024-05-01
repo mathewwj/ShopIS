@@ -12,7 +12,8 @@ public static class ShelfMapper
             Id = shelf.Id,
             Capacity = shelf.Capacity,
             IsInWarehouse = shelf.IsInWarehouse,
-            Category = shelf.Category.ToCategoryDto()
+            Category = shelf.Category.ToCategoryDto(),
+            ShelfProductDtos = shelf.ShelfProducts.Select(x => x.ShelfProductDto()).ToList()
         };
     }
 

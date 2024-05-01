@@ -12,11 +12,14 @@ public class ShelfService : IShelfService
     {
         _context = context;
     }
-
-
+    
     public async Task<List<Shelf>> GetAllAsync()
     {
-        return await _context.Shelves.Include(s => s.Category).ToListAsync();
+        return await _context.Shelves
+            .Include(s => s.Category)
+            .Include(s => s.ShelfProducts)
+            .ThenInclude(sp => sp.Product)
+            .ToListAsync();
     }
 
     public async Task<Shelf?> GetByIdAsync(int id)
