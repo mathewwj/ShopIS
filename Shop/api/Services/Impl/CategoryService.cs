@@ -6,35 +6,54 @@ namespace api.Services.Impl;
 
 public class CategoryService : ICategoryService
 {
-    private readonly ApplicationDbContext _applicationDbContext;
+    private readonly ApplicationDbContext _context;
 
-    public CategoryService(ApplicationDbContext applicationDbContext)
+    public CategoryService(ApplicationDbContext context)
     {
-        _applicationDbContext = applicationDbContext;
+        _context = context;
     }
 
     public async Task<List<Category>> GetAllAsync()
     {
-        return await _applicationDbContext.Categories.ToListAsync();
+        return await _context.Categories.ToListAsync();
     }
 
-    public Task<Category?> GetByIdAsync(int id)
+    public async Task<Category?> GetByIdAsync(int id)
     {
-        throw new NotImplementedException();
+        return await _context.Categories.FirstOrDefaultAsync(x => x.Id == id);
     }
 
-    public Task<Category> CreateAsync(Category Category)
+    public async Task<Category> CreateAsync(Category category)
     {
-        throw new NotImplementedException();
+        await _context.Categories.AddAsync(category);
+        await _context.SaveChangesAsync();
+        return category;
     }
 
-    public Task<Category?> UpdateAsync(int id, Category CategoryDto)
+    public async Task<Category?> UpdateAsync(int id, Category category)
     {
-        throw new NotImplementedException();
+        var inMemoryCategory = await GetByIdAsync(id);
+        if (inMemoryCategory == null)
+        {
+            return null;
+        }
+
+        inMemoryCategory.Name = category.Name;
+        await _context.SaveChangesAsync();
+        
+        return inMemoryCategory;
     }
 
-    public Task<Category?> Delete(int id)
+    public async Task<Category?> Delete(int id)
     {
-        throw new NotImplementedException();
+        var inMemoryCategory = await GetByIdAsync(id);
+        if (inMemoryCategory == null)
+        {
+            return null;;
+        }
+
+        _context.Categories.Remove(inMemoryCategory);
+        await _context.SaveChangesAsync();
+        return inMemoryCategory;
     }
 }

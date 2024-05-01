@@ -8,6 +8,6 @@ public interface ICategoryService
     Task<Category?> GetByIdAsync(int id);
 
     Task<Category> CreateAsync(Category Category);
-    Task<Category?> UpdateAsync(int id, Category CategoryDto);
+    Task<Category?> UpdateAsync(int id, Category Category);
     Task<Category?> Delete(int id);
 }
