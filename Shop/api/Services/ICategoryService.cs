@@ -11,5 +11,5 @@ public interface ICategoryService
     Task<Category?> UpdateAsync(int id, Category category);
     Task<Category?> DeleteAsync(int id);
 
-    Task<bool> IsExists(int id);
+    Task<bool> IsExistsAsync(int id);
 }

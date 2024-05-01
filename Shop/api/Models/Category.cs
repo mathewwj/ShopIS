@@ -9,5 +9,6 @@ public class Category
     public string Name { get; set; } = string.Empty;
     
     // navigation
-    public List<Product> Products { get; set; }
+    public List<Product> Products { get; set; } = new();
+    public List<Shelf> Shelves { get; set; } = new();
 }

@@ -82,8 +82,7 @@ builder.Services.AddAuthentication(options =>
 
 // TODO
 builder.Services.AddScoped<ICategoryService, CategoryService>();
-// builder.Services.AddScoped<ICommentRepository, CommentRepository>();
-// builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IShelfService, ShelfService>();
 
 var app = builder.Build();
 

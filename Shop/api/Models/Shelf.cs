@@ -9,7 +9,7 @@ public class Shelf
     public int Capacity { get; set; }
     public bool IsInWarehouse { get; set; }
     
-    // Category
+    // Navigation property
     public int CategoryId { set; get; }
     public Category Category { get; set; }
     

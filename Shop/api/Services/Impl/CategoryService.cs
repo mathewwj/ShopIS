@@ -57,7 +57,7 @@ public class CategoryService : ICategoryService
         return inMemoryCategory;
     }
 
-    public async Task<bool> IsExists(int id)
+    public async Task<bool> IsExistsAsync(int id)
     {
         return await GetByIdAsync(id) != null;
     }
