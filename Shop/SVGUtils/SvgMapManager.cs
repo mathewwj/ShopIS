@@ -7,16 +7,17 @@ namespace SVGUtils;
 public class SvgMapManager: ISvgMapManager
 {
     private Graph _graph;
-    private XDocument _xDocument;
+    private string _pathFile;
     
     public void LoadMap(string pathFile)
     {
-        _xDocument = XDocument.Load(pathFile);
+        _pathFile = pathFile;
+        var xDocument = XDocument.Load(_pathFile);
 
-        var pathLayer = _xDocument.Descendants()
+        var pathLayer = xDocument.Descendants()
             .FirstOrDefault(e => e.Name.LocalName == "g" && 
                                  (string) e.Attribute("id") == "Paths");
-        var regalLayer = _xDocument.Descendants()
+        var regalLayer = xDocument.Descendants()
             .FirstOrDefault(e => e.Name.LocalName == "g" && 
                                  (string) e.Attribute("id") == "Regals");
         _graph = ParseGraph(pathLayer.Elements(), regalLayer.Elements());
@@ -25,12 +26,9 @@ public class SvgMapManager: ISvgMapManager
     public void CreatePath(string outputPath, IEnumerable<int> shelfIds)
     {
         var path = _graph.GetPath(shelfIds);
-        // foreach (var edge in path)
-        // {
-        //     Console.WriteLine($"{edge.Id}");
-        // }
         
-        var pathLayer = _xDocument.Descendants()
+        var xDocument = XDocument.Load(_pathFile); 
+        var pathLayer = xDocument.Descendants()
             .FirstOrDefault(e => e.Name.LocalName == "g" && 
                                  (string) e.Attribute("id") == "Paths");
         
@@ -41,7 +39,7 @@ public class SvgMapManager: ISvgMapManager
                 element.SetAttributeValue("style", ChangeStrokeColor(element.Attribute("style").Value, "none"));
             }
         }
-        _xDocument.Save(outputPath);
+        xDocument.Save(outputPath);
         
         var content = File.ReadAllText(outputPath);
         var modifiedContent = content.Replace("<svg:", "<").Replace("</svg:", "</");
@@ -49,17 +47,15 @@ public class SvgMapManager: ISvgMapManager
     }
     static string ChangeStrokeColor(string styleAttr, string newColor)
     {
-        // Find the stroke color in the style attribute
         int startIndex = styleAttr.IndexOf("stroke:");
         if (startIndex == -1)
             return styleAttr;
 
-        startIndex += 7; // Move to the start of the color code
+        startIndex += 7;
         int endIndex = styleAttr.IndexOf(";", startIndex);
         if (endIndex == -1)
             endIndex = styleAttr.Length;
-
-        // Replace the stroke color with the new color
+        
         string oldColor = styleAttr.Substring(startIndex, endIndex - startIndex);
         return styleAttr.Replace(oldColor, newColor);
     }    
