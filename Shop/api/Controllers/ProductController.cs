@@ -1,4 +1,5 @@
-﻿using api.Mappers;
+﻿using api.Dto.Product;
+using api.Mappers;
 using api.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -34,5 +35,12 @@ public class ProductController : ControllerBase
         }
         return Ok(inMemoryProduct.ToProductDto());
     }
-    
+ 
+    [HttpPost]
+    public async Task<IActionResult> Create([FromBody] CreateProductDto productDto)
+    {
+        var newProduct = productDto.ToProductFromCreateDto();
+        var inMemoryProduct = await _productService.CreateAsync(newProduct);
+        return CreatedAtAction(nameof(GetById), new { id = inMemoryProduct.Id }, inMemoryProduct.ToProductDto());
+    }
 }
