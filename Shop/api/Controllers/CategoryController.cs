@@ -1,4 +1,5 @@
 ﻿using api.Dto.Category;
+using api.Mappers;
 using api.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,7 +20,9 @@ public class CategoryController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        return Ok();
+        var categories = await _categoryService.GetAllAsync();
+        var categoriesDto = categories.Select(c => c.ToCategoryDto());
+        return Ok(categoriesDto);
     }
 
     [HttpGet]

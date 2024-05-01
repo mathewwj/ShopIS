@@ -3,7 +3,7 @@
 namespace api.Models;
 
 // todo rename table
-[Table("product_categories")]
+[Table("categories")]
 public class Category
 {
     public int Id { get; set; }

@@ -1,12 +1,21 @@
-﻿using api.Models;
+﻿using api.Data;
+using api.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace api.Services.Impl;
 
 public class CategoryService : ICategoryService
 {
-    public Task<List<Category>> GetAllAsync()
+    private readonly ApplicationDbContext _applicationDbContext;
+
+    public CategoryService(ApplicationDbContext applicationDbContext)
     {
-        throw new NotImplementedException();
+        _applicationDbContext = applicationDbContext;
+    }
+
+    public async Task<List<Category>> GetAllAsync()
+    {
+        return await _applicationDbContext.Categories.ToListAsync();
     }
 
     public Task<Category?> GetByIdAsync(int id)
