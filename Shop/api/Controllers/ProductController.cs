@@ -51,14 +51,23 @@ public class ProductController : ControllerBase
     [Route("{id:int}")]
     public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateProductDto productDto)
     {
-        var toUpdateShelf = productDto.ToProductFromUpdateDto();
+        var toUpdateProduct = productDto.ToProductFromUpdateDto();
         
-        if (!await _categoryService.IsExistsAsync(toUpdateShelf.CategoryId))
+        if (!await _categoryService.IsExistsAsync(toUpdateProduct.CategoryId))
         {
             return NotFound("invalid category id");
         }
         
-        var inMemoryShelf = await _productService.UpdateAsync(id, toUpdateShelf);
-        return inMemoryShelf == null? NotFound(): Ok(inMemoryShelf.ToProductDto());
+        var inMemoryCategory = await _productService.UpdateAsync(id, toUpdateProduct);
+        return inMemoryCategory == null? NotFound(): Ok(inMemoryCategory.ToProductDto());
+    }
+    
+    [HttpDelete]
+    [Route("{id:int}")]
+    public async Task<IActionResult> Delete([FromRoute] int id)
+    {
+        var inMemoryProduct = await _productService.DeleteAsync(id);
+
+        return inMemoryProduct == null? NotFound(): NoContent();
     }
 }
