@@ -10,10 +10,12 @@ namespace api.Controllers;
 public class ProductController : ControllerBase
 {
     private readonly IProductService _productService;
+    private readonly ICategoryService _categoryService;
 
-    public ProductController(IProductService productService)
+    public ProductController(IProductService productService, ICategoryService categoryService)
     {
         _productService = productService;
+        _categoryService = categoryService;
     }
     
     [HttpGet]
@@ -36,11 +38,27 @@ public class ProductController : ControllerBase
         return Ok(inMemoryProduct.ToProductDto());
     }
  
+    // TODO fix create return null category
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateProductDto productDto)
     {
         var newProduct = productDto.ToProductFromCreateDto();
         var inMemoryProduct = await _productService.CreateAsync(newProduct);
         return CreatedAtAction(nameof(GetById), new { id = inMemoryProduct.Id }, inMemoryProduct.ToProductDto());
+    }
+    
+    [HttpPut]
+    [Route("{id:int}")]
+    public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateProductDto productDto)
+    {
+        var toUpdateShelf = productDto.ToProductFromUpdateDto();
+        
+        if (!await _categoryService.IsExistsAsync(toUpdateShelf.CategoryId))
+        {
+            return NotFound("invalid category id");
+        }
+        
+        var inMemoryShelf = await _productService.UpdateAsync(id, toUpdateShelf);
+        return inMemoryShelf == null? NotFound(): Ok(inMemoryShelf.ToProductDto());
     }
 }

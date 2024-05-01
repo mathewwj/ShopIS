@@ -20,7 +20,7 @@ public class ProductService : IProductService
 
     public async Task<Product?> GetByIdAsync(int id)
     {
-        return await _context.Products.Include(p => p.Category).FirstOrDefaultAsync();
+        return await _context.Products.Include(p => p.Category).FirstOrDefaultAsync(x => x.Id == id);
     }
 
     public async Task<Product> CreateAsync(Product product)
