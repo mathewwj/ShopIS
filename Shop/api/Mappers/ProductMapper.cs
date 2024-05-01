@@ -41,4 +41,18 @@ public static class ProductMapper
             Price = updateProductDto.Price
         };
     }
+    
+    public static Product ToProductFromDto(this ProductDto productDto)
+    {
+        return new Product
+        {
+            Name = productDto.Name,
+            CategoryId = productDto.CategoryDto.Id,
+            Category = productDto.CategoryDto.ToCategoryFromDto(),
+            DescriptionUrl = productDto.DescriptionUrl,
+            ImageUrl = productDto.ImageUrl,
+            Price = productDto.Price
+        };
+    }
+    
 }

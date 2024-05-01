@@ -29,4 +29,13 @@ public static class CategoryMapper
             Name = createCategoryDto.Name
         };
     }
+    
+    public static Category ToCategoryFromDto(this CategoryDto categoryDto)
+    {
+        return new Category
+        {
+            Id = categoryDto.Id,
+            Name = categoryDto.Name
+        };
+    }
 }

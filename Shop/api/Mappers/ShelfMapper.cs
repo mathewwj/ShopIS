@@ -13,7 +13,7 @@ public static class ShelfMapper
             Capacity = shelf.Capacity,
             IsInWarehouse = shelf.IsInWarehouse,
             Category = shelf.Category.ToCategoryDto(),
-            ShelfProductDtos = shelf.ShelfProducts.Select(x => x.ShelfProductDto()).ToList()
+            ShelfProductDtos = shelf.ShelfProducts.Select(x => x.ToShelfProductDto()).ToList()
         };
     }
 
@@ -29,11 +29,14 @@ public static class ShelfMapper
     
     public static Shelf ToShelfFromUpdateDto(this UpdateShelfDto createShelfDto)
     {
-        return new Shelf
+        var shelf = new Shelf
         {
             Capacity = createShelfDto.Capacity,
             IsInWarehouse = createShelfDto.IsInWarehouse,
             CategoryId = createShelfDto.CategoryId,
+            ShelfProducts = createShelfDto.ShelfProductDtos.Select(x => x.ToShelfProductFromDto()).ToList()
         };
+        
+        return shelf;
     }
 }

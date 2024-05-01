@@ -24,7 +24,11 @@ public class ShelfService : IShelfService
 
     public async Task<Shelf?> GetByIdAsync(int id)
     {
-        return await _context.Shelves.Include(s => s.Category).FirstOrDefaultAsync(x => x.Id == id);
+        return await _context.Shelves            
+            .Include(s => s.Category)
+            .Include(s => s.ShelfProducts)
+            .ThenInclude(sp => sp.Product)
+            .FirstOrDefaultAsync(x => x.Id == id);
     }
 
     public async Task<Shelf> CreateAsync(Shelf shelf)
@@ -45,6 +49,16 @@ public class ShelfService : IShelfService
         inMemoryShelf.Capacity = shelf.Capacity;
         inMemoryShelf.IsInWarehouse = shelf.IsInWarehouse;
         inMemoryShelf.CategoryId = shelf.CategoryId;
+        // TODO probably one to many will be enough
+        // inMemoryShelf.ShelfProducts = shelf.ShelfProducts;
+        //
+        // foreach (var shelfProduct in inMemoryShelf.ShelfProducts)
+        // {
+        //     shelfProduct.ShelfId = id;
+        //     shelfProduct.Shelf = inMemoryShelf;
+        // }
+        //
+        
         await _context.SaveChangesAsync();
         
         return inMemoryShelf;
