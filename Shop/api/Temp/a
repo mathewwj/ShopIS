@@ -7,7 +7,7 @@
   <defs id="defs1" />
   <g inkscape:groupmode="layer" id="Paths" inkscape:label="Paths">
     <path style="fill:none;stroke:none;stroke-width:1;stroke-dasharray:none;stroke-opacity:1;paint-order:normal;stroke-linecap:round" d="M 39.999999,150 H 15" id="path19" />
-    <path style="fill:none;stroke:none;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" d="M 39.999999,165 H 115" id="path20" />
+    <path style="fill:none;stroke:#0400ff;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" d="M 39.999999,165 H 115" id="path20" />
     <path style="fill:none;stroke:#0400ff;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" d="M 39.999999,195 V 165" id="path21" />
     <path style="fill:none;stroke:none;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" d="M 39.999999,125 h 25" id="path22" />
     <path style="fill:none;stroke:none;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" d="M 64.999999,75 h -25" id="path23" />
@@ -21,15 +21,15 @@
     <path style="fill:none;stroke:none;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" d="M 285.00001,100 H 260" id="path34" />
     <path style="fill:none;stroke:none;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" d="M 260,75 v 25" id="path35" />
     <path style="fill:none;stroke:none;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" d="M 260,50 V 75" id="path36" />
-    <path style="fill:none;stroke:#0400ff;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" d="M 39.999999,165 V 150" id="path37" />
-    <path style="fill:none;stroke:#0400ff;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" d="M 39.999999,125 v 25" id="path38" />
-    <path style="fill:none;stroke:#0400ff;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" d="M 39.999999,100 v 25" id="path39" />
-    <path style="fill:none;stroke:#0400ff;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" d="M 39.999999,75 v 25" id="path40" />
-    <path style="fill:none;stroke:#0400ff;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" d="M 39.999999,50 V 75" id="path41" />
-    <path style="fill:none;stroke:#0400ff;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" d="M 50,15 V 30" id="path42" />
-    <path style="fill:none;stroke:#0400ff;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" d="M 39.999999,50 V 30" id="path43" />
-    <path style="fill:none;stroke:#0400ff;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" d="M 50,30 H 39.999999" id="path44" />
-    <path style="fill:none;stroke:#0400ff;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" d="M 100,15 V 30" id="path45" />
+    <path style="fill:none;stroke:none;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" d="M 39.999999,165 V 150" id="path37" />
+    <path style="fill:none;stroke:none;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" d="M 39.999999,125 v 25" id="path38" />
+    <path style="fill:none;stroke:none;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" d="M 39.999999,100 v 25" id="path39" />
+    <path style="fill:none;stroke:none;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" d="M 39.999999,75 v 25" id="path40" />
+    <path style="fill:none;stroke:none;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" d="M 39.999999,50 V 75" id="path41" />
+    <path style="fill:none;stroke:none;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" d="M 50,15 V 30" id="path42" />
+    <path style="fill:none;stroke:none;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" d="M 39.999999,50 V 30" id="path43" />
+    <path style="fill:none;stroke:none;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" d="M 50,30 H 39.999999" id="path44" />
+    <path style="fill:none;stroke:none;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" d="M 100,15 V 30" id="path45" />
     <path style="fill:none;stroke:none;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" d="M 150,15 V 30" id="path46" />
     <path style="fill:none;stroke:none;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" d="M 200,15 V 30" id="path47" />
     <path style="fill:none;stroke:none;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" d="M 250,15 V 30" id="path48" />
@@ -37,19 +37,19 @@
     <path style="fill:none;stroke:none;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" d="M 250,30 h 10" id="path50" />
     <path style="fill:none;stroke:none;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" d="M 200,30 h 50" id="path51" />
     <path style="fill:none;stroke:none;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" d="M 190,75 V 30" id="path52" />
-    <path style="fill:none;stroke:#0400ff;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" d="M 115,75 V 30" id="path54" />
-    <path style="fill:none;stroke:#0400ff;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" d="M 115,165 V 125" id="path56" />
+    <path style="fill:none;stroke:none;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" d="M 115,75 V 30" id="path54" />
+    <path style="fill:none;stroke:none;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" d="M 115,165 V 125" id="path56" />
     <path style="fill:none;stroke:none;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" d="M 190,165 V 125" id="path59" />
     <path style="fill:none;stroke:#0400ff;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" d="M 115,165 h 75" id="path60" />
     <path style="fill:none;stroke:none;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" d="M 260,125 V 100" id="path63" />
     <path style="fill:none;stroke:none;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" d="M 190,125 h 45" id="path64" />
     <path style="fill:none;stroke:none;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" d="M 260,125 H 235" id="path65" />
-    <path style="fill:none;stroke:#0400ff;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" d="M 115,75 v 50" id="path66" />
+    <path style="fill:none;stroke:none;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" d="M 115,75 v 50" id="path66" />
     <path style="fill:none;stroke:none;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" d="M 84.999998,75 H 115" id="path67" />
     <path style="fill:none;stroke:none;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" d="M 165,125 h 25" id="path68" />
     <path style="fill:none;stroke:none;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" d="M 190,75 v 50" id="path69" />
-    <path style="fill:none;stroke:#0400ff;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" d="M 50,30 h 50" id="path70" />
-    <path style="fill:none;stroke:#0400ff;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" d="M 100,30 h 15" id="path71" />
+    <path style="fill:none;stroke:none;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" d="M 50,30 h 50" id="path70" />
+    <path style="fill:none;stroke:none;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" d="M 100,30 h 15" id="path71" />
     <path style="fill:none;stroke:none;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" d="M 115,30 h 35" id="path72" />
     <path style="fill:none;stroke:none;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" d="M 150,30 h 40" id="path73" />
     <path style="fill:none;stroke:none;stroke-width:1;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal" d="M 190,30 h 10" id="path74" />

@@ -17,6 +17,7 @@ public class Product
     [Column(TypeName = "decimal(18,2)")]
     public decimal Price { get; set; }
 
-    // Products
-    public List<ShelfProduct> ShelfProducts { get; set; } = new();
+    // Navigation
+    public Shelf Shelf { get; set; }
+    public int ShelfId { get; set; }
 }

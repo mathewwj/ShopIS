@@ -42,13 +42,13 @@ namespace api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "9dd65e0c-2486-4b94-a432-31baa100ba65",
+                            Id = "e9f94b71-31eb-40a2-aa3b-4a6040cab2fa",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "7325f9be-fec0-4854-b0ee-ab2c3ac262d4",
+                            Id = "9d115446-3604-45c9-82c1-843668d4cccd",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -97,9 +97,14 @@ namespace api.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<int>("ShelfId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("ShelfId");
 
                     b.ToTable("products");
                 });
@@ -128,24 +133,6 @@ namespace api.Migrations
                     b.ToTable("shelf");
                 });
 
-            modelBuilder.Entity("api.Models.ShelfProduct", b =>
-                {
-                    b.Property<int>("ShelfId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("ShelfId", "ProductId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("shelf_product");
-                });
-
             modelBuilder.Entity("api.Models.Product", b =>
                 {
                     b.HasOne("api.Models.Category", "Category")
@@ -154,7 +141,15 @@ namespace api.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("api.Models.Shelf", "Shelf")
+                        .WithMany("Products")
+                        .HasForeignKey("ShelfId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.Navigation("Category");
+
+                    b.Navigation("Shelf");
                 });
 
             modelBuilder.Entity("api.Models.Shelf", b =>
@@ -168,25 +163,6 @@ namespace api.Migrations
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("api.Models.ShelfProduct", b =>
-                {
-                    b.HasOne("api.Models.Product", "Product")
-                        .WithMany("ShelfProducts")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("api.Models.Shelf", "Shelf")
-                        .WithMany("ShelfProducts")
-                        .HasForeignKey("ShelfId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Product");
-
-                    b.Navigation("Shelf");
-                });
-
             modelBuilder.Entity("api.Models.Category", b =>
                 {
                     b.Navigation("Products");
@@ -194,14 +170,9 @@ namespace api.Migrations
                     b.Navigation("Shelves");
                 });
 
-            modelBuilder.Entity("api.Models.Product", b =>
-                {
-                    b.Navigation("ShelfProducts");
-                });
-
             modelBuilder.Entity("api.Models.Shelf", b =>
                 {
-                    b.Navigation("ShelfProducts");
+                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,6 +1,7 @@
 ﻿using api.Data;
 using api.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
 
 namespace api.Services.Impl;
 
@@ -17,8 +18,7 @@ public class ShelfService : IShelfService
     {
         return await _context.Shelves
             .Include(s => s.Category)
-            .Include(s => s.ShelfProducts)
-            .ThenInclude(sp => sp.Product)
+            .Include(s => s.Products)
             .ToListAsync();
     }
 
@@ -26,8 +26,7 @@ public class ShelfService : IShelfService
     {
         return await _context.Shelves            
             .Include(s => s.Category)
-            .Include(s => s.ShelfProducts)
-            .ThenInclude(sp => sp.Product)
+            .Include(s => s.Products)
             .FirstOrDefaultAsync(x => x.Id == id);
     }
 
@@ -49,15 +48,7 @@ public class ShelfService : IShelfService
         inMemoryShelf.Capacity = shelf.Capacity;
         inMemoryShelf.IsInWarehouse = shelf.IsInWarehouse;
         inMemoryShelf.CategoryId = shelf.CategoryId;
-        // TODO probably one to many will be enough
-        // inMemoryShelf.ShelfProducts = shelf.ShelfProducts;
-        //
-        // foreach (var shelfProduct in inMemoryShelf.ShelfProducts)
-        // {
-        //     shelfProduct.ShelfId = id;
-        //     shelfProduct.Shelf = inMemoryShelf;
-        // }
-        //
+        inMemoryShelf.Products = shelf.Products;
         
         await _context.SaveChangesAsync();
         

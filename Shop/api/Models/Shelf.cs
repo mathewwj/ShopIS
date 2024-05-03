@@ -14,5 +14,5 @@ public class Shelf
     public Category Category { get; set; }
     
     // Products
-    public List<ShelfProduct> ShelfProducts { get; set; } = new();
+    public List<Product> Products { get; set; } = new();
 }

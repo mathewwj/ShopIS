@@ -10,7 +10,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<Product> Products { get; set; }
     public DbSet<Shelf> Shelves { get; set; }
 
-    public DbSet<ShelfProduct> ShelfProducts { get; set; }
+    // public DbSet<ShelfProduct> ShelfProducts { get; set; }
     
     public ApplicationDbContext(DbContextOptions dbContextOptions) : base(dbContextOptions) { }
     
@@ -18,18 +18,12 @@ public class ApplicationDbContext : DbContext
     {
         base.OnModelCreating(builder);
 
-        builder.Entity<ShelfProduct>(x => x.HasKey(p => new { p.ShelfId, p.ProductId }));
-        builder.Entity<ShelfProduct>()
-            .HasOne(u => u.Shelf)
-            .WithMany(u => u.ShelfProducts)
+        builder.Entity<Product>()
+            .HasOne(p => p.Shelf)
+            .WithMany(s => s.Products)
             .HasForeignKey(p => p.ShelfId)
             .OnDelete(DeleteBehavior.Restrict);
-        
-        builder.Entity<ShelfProduct>()
-            .HasOne(u => u.Product)
-            .WithMany(u => u.ShelfProducts)
-            .HasForeignKey(p => p.ProductId)
-            .OnDelete(DeleteBehavior.Restrict);
+
         
         var roles = new List<IdentityRole>
         {

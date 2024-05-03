@@ -22,12 +22,13 @@ public class PathService : IPathService
     public string GetSvgPath(List<int> productIds)
     {
         var shelfIds = _context.Products
-            .Include(s => s.ShelfProducts)
+            .Include(p => p.ShelfId)
             .Where(p => productIds.Contains(p.Id))
-            .Select(p => p.ShelfProducts.First().ShelfId)
+            .Select(p => p.ShelfId)
             .ToList();
         
         _mapManager.LoadMap(MAP_PATH);
+        
         var name = TEMP_PATH + "a";
         _mapManager.CreatePath(name, shelfIds);
         
