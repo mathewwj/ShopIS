@@ -70,6 +70,19 @@ public class ShoppingListController : ControllerBase
         return CreatedAtAction(nameof(GetById), new { id = newShoppingList.Id }, inMemoryList.ToShoppingListDto());
     }
 
+    [HttpPut]
+    [Route("{id:int}")]
+    public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateShoppingListDto dto)
+    {
+        var user = GetSendingUser();
+        if (user == null)
+        {
+            return BadRequest("user not found");
+        }
+
+        var inMemoryList = await _shoppingListService.UpdateAsync(user, id, dto.ToShoppingListFromUpdateDto());
+        return inMemoryList == null ? NotFound() : Ok(inMemoryList.ToShoppingListDto());
+    }
 
     private AppUser? GetSendingUser()
     {
