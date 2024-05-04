@@ -17,7 +17,7 @@ namespace api.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.4")
+                .HasAnnotation("ProductVersion", "8.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -51,13 +51,13 @@ namespace api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "46155bfd-c81c-4aa5-b9f8-560fb0491347",
+                            Id = "77ce546f-fc84-42d0-93a6-dc3f98f80200",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "c01896a1-a270-45a5-b913-e9174155354e",
+                            Id = "48c2cd50-0d83-44df-b14f-e39457ec202d",
                             Name = "User",
                             NormalizedName = "USER"
                         });

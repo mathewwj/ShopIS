@@ -64,7 +64,6 @@ public class AccountController : ControllerBase
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
         
-        Console.WriteLine("aaa");
         var appUser = await _userManager.Users.FirstOrDefaultAsync(u => u.UserName == loginDto.Username);
         if (appUser == null)
             return Unauthorized("Invalid credentials!");

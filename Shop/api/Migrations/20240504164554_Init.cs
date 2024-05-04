@@ -172,6 +172,27 @@ namespace api.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "shopping_list",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<int>(type: "int", nullable: false),
+                    CreatedTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    AppUserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_shopping_list", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_shopping_list_AspNetUsers_AppUserId",
+                        column: x => x.AppUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "shelf",
                 columns: table => new
                 {
@@ -222,13 +243,37 @@ namespace api.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "join_product_shopping_list",
+                columns: table => new
+                {
+                    ShoppingListId = table.Column<int>(type: "int", nullable: false),
+                    ProductId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_join_product_shopping_list", x => new { x.ShoppingListId, x.ProductId });
+                    table.ForeignKey(
+                        name: "FK_join_product_shopping_list_products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_join_product_shopping_list_shopping_list_ShoppingListId",
+                        column: x => x.ShoppingListId,
+                        principalTable: "shopping_list",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "03615317-4718-4798-80e0-c2c6b42cd918", null, "Admin", "ADMIN" },
-                    { "cb68d55a-970c-49da-accc-96e5d28125e9", null, "User", "USER" }
+                    { "48c2cd50-0d83-44df-b14f-e39457ec202d", null, "User", "USER" },
+                    { "77ce546f-fc84-42d0-93a6-dc3f98f80200", null, "Admin", "ADMIN" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -271,6 +316,11 @@ namespace api.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_join_product_shopping_list_ProductId",
+                table: "join_product_shopping_list",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_products_CategoryId",
                 table: "products",
                 column: "CategoryId");
@@ -284,6 +334,11 @@ namespace api.Migrations
                 name: "IX_shelf_CategoryId",
                 table: "shelf",
                 column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_shopping_list_AppUserId",
+                table: "shopping_list",
+                column: "AppUserId");
         }
 
         /// <inheritdoc />
@@ -305,16 +360,22 @@ namespace api.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "products");
+                name: "join_product_shopping_list");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "products");
+
+            migrationBuilder.DropTable(
+                name: "shopping_list");
 
             migrationBuilder.DropTable(
                 name: "shelf");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "categories");

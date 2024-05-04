@@ -12,7 +12,7 @@ using api.Data;
 namespace api.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240504090814_Init")]
+    [Migration("20240504164554_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -20,7 +20,7 @@ namespace api.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.4")
+                .HasAnnotation("ProductVersion", "8.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -54,13 +54,13 @@ namespace api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "03615317-4718-4798-80e0-c2c6b42cd918",
+                            Id = "77ce546f-fc84-42d0-93a6-dc3f98f80200",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "cb68d55a-970c-49da-accc-96e5d28125e9",
+                            Id = "48c2cd50-0d83-44df-b14f-e39457ec202d",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -254,6 +254,21 @@ namespace api.Migrations
                     b.ToTable("categories");
                 });
 
+            modelBuilder.Entity("api.Models.JoinProductShoppingList", b =>
+                {
+                    b.Property<int>("ShoppingListId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ShoppingListId", "ProductId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("join_product_shopping_list");
+                });
+
             modelBuilder.Entity("api.Models.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -316,6 +331,31 @@ namespace api.Migrations
                     b.ToTable("shelf");
                 });
 
+            modelBuilder.Entity("api.Models.ShoppingList", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AppUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Name")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.ToTable("shopping_list");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -367,6 +407,25 @@ namespace api.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("api.Models.JoinProductShoppingList", b =>
+                {
+                    b.HasOne("api.Models.Product", "Product")
+                        .WithMany("JoinProductShoppingLists")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("api.Models.ShoppingList", "ShoppingList")
+                        .WithMany("JoinProductShoppingLists")
+                        .HasForeignKey("ShoppingListId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("ShoppingList");
+                });
+
             modelBuilder.Entity("api.Models.Product", b =>
                 {
                     b.HasOne("api.Models.Category", "Category")
@@ -397,6 +456,22 @@ namespace api.Migrations
                     b.Navigation("Category");
                 });
 
+            modelBuilder.Entity("api.Models.ShoppingList", b =>
+                {
+                    b.HasOne("api.Models.AppUser", "AppUser")
+                        .WithMany("ShoppingLists")
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+                });
+
+            modelBuilder.Entity("api.Models.AppUser", b =>
+                {
+                    b.Navigation("ShoppingLists");
+                });
+
             modelBuilder.Entity("api.Models.Category", b =>
                 {
                     b.Navigation("Products");
@@ -404,9 +479,19 @@ namespace api.Migrations
                     b.Navigation("Shelves");
                 });
 
+            modelBuilder.Entity("api.Models.Product", b =>
+                {
+                    b.Navigation("JoinProductShoppingLists");
+                });
+
             modelBuilder.Entity("api.Models.Shelf", b =>
                 {
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("api.Models.ShoppingList", b =>
+                {
+                    b.Navigation("JoinProductShoppingLists");
                 });
 #pragma warning restore 612, 618
         }
