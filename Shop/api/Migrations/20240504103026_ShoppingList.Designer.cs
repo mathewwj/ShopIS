@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using api.Data;
 
@@ -11,9 +12,11 @@ using api.Data;
 namespace api.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240504103026_ShoppingList")]
+    partial class ShoppingList
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,13 +54,13 @@ namespace api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "c5af1630-0d8f-4af2-915f-b5174ec67560",
+                            Id = "8ec8b5d2-8b4d-4595-9cf1-b99a7cc20067",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "df514c44-37a6-4b49-85fe-918a5f65885c",
+                            Id = "3cb54fc7-a08f-45f6-a6f0-fa344c7a2280",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -263,7 +266,7 @@ namespace api.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("join_product_shopping_list");
+                    b.ToTable("JoinProductShoppingLists");
                 });
 
             modelBuilder.Entity("api.Models.Product", b =>

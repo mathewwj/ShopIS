@@ -20,4 +20,7 @@ public class Product
     // Navigation
     public Shelf Shelf { get; set; }
     public int ShelfId { get; set; }
+    
+    // Navigation
+    public List<JoinProductShoppingList> JoinProductShoppingLists { get; set; } = new();
 }
