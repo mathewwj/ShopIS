@@ -48,7 +48,6 @@ public class ShelfService : IShelfService
         inMemoryShelf.Capacity = shelf.Capacity;
         inMemoryShelf.IsInWarehouse = shelf.IsInWarehouse;
         inMemoryShelf.CategoryId = shelf.CategoryId;
-        inMemoryShelf.Products = shelf.Products;
         
         await _context.SaveChangesAsync();
         

@@ -33,8 +33,7 @@ public static class ShelfMapper
         {
             Capacity = createShelfDto.Capacity,
             IsInWarehouse = createShelfDto.IsInWarehouse,
-            CategoryId = createShelfDto.CategoryId,
-            Products = createShelfDto.Products.Select(x => x.ToProductFromDto()).ToList()
+            CategoryId = createShelfDto.CategoryId
         };
         
         return shelf;
