@@ -10,9 +10,8 @@ public static class ShelfMapper
         return new ShelfDto
         {
             Id = shelf.Id,
-            Capacity = shelf.Capacity,
             IsInWarehouse = shelf.IsInWarehouse,
-            Category = shelf.Category.ToCategoryDto(),
+            Name = shelf.Name,
             Products = shelf.Products.Select(x => x.ToProductDto()).ToList()
         };
     }
@@ -21,9 +20,8 @@ public static class ShelfMapper
     {
         return new Shelf
         {
-            Capacity = createShelfDto.Capacity,
+            Name = createShelfDto.Name,
             IsInWarehouse = createShelfDto.IsInWarehouse,
-            CategoryId = createShelfDto.CategoryId,
         };
     }
     
@@ -31,9 +29,8 @@ public static class ShelfMapper
     {
         var shelf = new Shelf
         {
-            Capacity = createShelfDto.Capacity,
+            Name = createShelfDto.Name,
             IsInWarehouse = createShelfDto.IsInWarehouse,
-            CategoryId = createShelfDto.CategoryId
         };
         
         return shelf;

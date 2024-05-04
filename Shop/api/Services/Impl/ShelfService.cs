@@ -17,16 +17,16 @@ public class ShelfService : IShelfService
     public async Task<List<Shelf>> GetAllAsync()
     {
         return await _context.Shelves
-            .Include(s => s.Category)
             .Include(s => s.Products)
+            .ThenInclude(p => p.Category)
             .ToListAsync();
     }
 
     public async Task<Shelf?> GetByIdAsync(int id)
     {
         return await _context.Shelves            
-            .Include(s => s.Category)
             .Include(s => s.Products)
+            .ThenInclude(p => p.Category)
             .FirstOrDefaultAsync(x => x.Id == id);
     }
 
@@ -45,9 +45,8 @@ public class ShelfService : IShelfService
             return null;
         }
 
-        inMemoryShelf.Capacity = shelf.Capacity;
+        inMemoryShelf.Name = shelf.Name;
         inMemoryShelf.IsInWarehouse = shelf.IsInWarehouse;
-        inMemoryShelf.CategoryId = shelf.CategoryId;
         
         await _context.SaveChangesAsync();
         

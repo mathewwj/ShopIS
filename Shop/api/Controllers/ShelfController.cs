@@ -11,13 +11,11 @@ namespace api.Controllers;
 public class ShelfController : ControllerBase
 {
     private readonly IShelfService _shelfService;
-    private readonly ICategoryService _categoryService;
     private readonly IProductService _productService;
 
     public ShelfController(IShelfService shelfService, ICategoryService categoryService, IProductService productService)
     {
         _shelfService = shelfService;
-        _categoryService = categoryService;
         _productService = productService;
     }
     
@@ -46,11 +44,6 @@ public class ShelfController : ControllerBase
     {
         var newShelf = shelfDto.ToShelfFromCreateDto();
         
-        if (!await _categoryService.IsExistsAsync(newShelf.CategoryId))
-        {
-            return NotFound("invalid category id");
-        }
-        
         var inMemoryShelf = await _shelfService.CreateAsync(newShelf);
         return CreatedAtAction(nameof(GetById), new { id = inMemoryShelf.Id }, inMemoryShelf.ToShelfDto());
     }
@@ -60,12 +53,7 @@ public class ShelfController : ControllerBase
     public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateShelfDto shelfDto)
     {
         var toUpdateShelf = shelfDto.ToShelfFromUpdateDto();
-        
-        if (!await _categoryService.IsExistsAsync(toUpdateShelf.CategoryId))
-        {
-            return NotFound("invalid category id");
-        }
-        
+
         var inMemoryShelf = await _shelfService.UpdateAsync(id, toUpdateShelf);
         return inMemoryShelf == null? NotFound(): Ok(inMemoryShelf.ToShelfDto());
     }

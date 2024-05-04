@@ -4,7 +4,6 @@ namespace api.Dto.Shelf;
 
 public class UpdateShelfDto
 {
-    public int Capacity { get; set; }
+    public string Name { get; set; } = string.Empty;
     public bool IsInWarehouse { get; set; }
-    public int CategoryId { set; get; }
 }

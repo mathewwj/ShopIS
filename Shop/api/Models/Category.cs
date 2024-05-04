@@ -10,5 +10,4 @@ public class Category
     
     // navigation
     public List<Product> Products { get; set; } = new();
-    public List<Shelf> Shelves { get; set; } = new();
 }

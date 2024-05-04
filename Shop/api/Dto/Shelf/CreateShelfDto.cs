@@ -2,7 +2,6 @@
 
 public class CreateShelfDto
 {
-    public int Capacity { get; set; }
+    public string Name { get; set; } = string.Empty;
     public bool IsInWarehouse { get; set; }
-    public int CategoryId { set; get; }
 }
