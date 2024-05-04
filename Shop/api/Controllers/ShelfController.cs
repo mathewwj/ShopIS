@@ -1,4 +1,5 @@
-﻿using api.Dto.Shelf;
+﻿using api.Dto.Product;
+using api.Dto.Shelf;
 using api.Mappers;
 using api.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -11,11 +12,13 @@ public class ShelfController : ControllerBase
 {
     private readonly IShelfService _shelfService;
     private readonly ICategoryService _categoryService;
+    private readonly IProductService _productService;
 
-    public ShelfController(IShelfService shelfService, ICategoryService categoryService)
+    public ShelfController(IShelfService shelfService, ICategoryService categoryService, IProductService productService)
     {
         _shelfService = shelfService;
         _categoryService = categoryService;
+        _productService = productService;
     }
     
     [HttpGet]
@@ -65,6 +68,23 @@ public class ShelfController : ControllerBase
         
         var inMemoryShelf = await _shelfService.UpdateAsync(id, toUpdateShelf);
         return inMemoryShelf == null? NotFound(): Ok(inMemoryShelf.ToShelfDto());
+    }
+    
+    [HttpPatch("{shelfId}/move")]
+    public async Task<IActionResult> MoveProduct(int shelfId, int toShelfId, int productId)
+    {
+        if (!await _productService.IsExistsAsync(productId) || 
+            !await _shelfService.IsExistsAsync(toShelfId) ||
+            !await _shelfService.IsExistsAsync(shelfId))
+        {
+            return NotFound("invalid product or shelf id");
+        }
+
+        var success = await _shelfService.MoveProductAsync(shelfId, toShelfId, productId);
+
+        return success
+            ? Ok($"Product {productId} moved from shelf {shelfId} to shelf {toShelfId}")
+            : BadRequest("Product move failed");
     }
 
     [HttpDelete]

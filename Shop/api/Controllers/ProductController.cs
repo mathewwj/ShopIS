@@ -12,7 +12,7 @@ public class ProductController : ControllerBase
     private readonly IProductService _productService;
     private readonly ICategoryService _categoryService;
 
-    public ProductController(IProductService productService, ICategoryService categoryService)
+    public ProductController(IProductService productService, ICategoryService categoryService, IShelfService shelfService)
     {
         _productService = productService;
         _categoryService = categoryService;

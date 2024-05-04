@@ -10,6 +10,8 @@ public interface IShelfService
     Task<Shelf> CreateAsync(Shelf shelf);
     Task<Shelf?> UpdateAsync(int id, Shelf shelf);
     Task<Shelf?> DeleteAsync(int id);
+
+    Task<bool> MoveProductAsync(int fromId, int toId, int productId);
     
     Task<bool> IsExistsAsync(int id);
 }

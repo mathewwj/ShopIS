@@ -77,6 +77,28 @@ public class ShelfService : IShelfService
         return inMemoryShelf;
     }
 
+    public async Task<bool> MoveProductAsync(int fromId, int toId, int productId)
+    {
+        var fromShelf = await GetByIdAsync(fromId);
+        var toShelf = await GetByIdAsync(toId);
+
+        if (fromShelf == null || toShelf == null)
+        {
+            return false;
+        }
+
+        var product = fromShelf.Products.FirstOrDefault(x => x.Id == productId);
+        if (product == null)
+        {
+            return false;
+        }
+
+        fromShelf.Products.Remove(product);
+        toShelf.Products.Add(product);
+        await _context.SaveChangesAsync();
+        return true;
+    }
+
     public async Task<bool> IsExistsAsync(int id)
     {
         return await GetByIdAsync(id) != null;
