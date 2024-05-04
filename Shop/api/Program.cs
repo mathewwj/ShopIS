@@ -92,6 +92,7 @@ builder.Services.AddScoped<IShelfService, ShelfService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IPathService, PathService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IJoinProductShoppingListService, JoinProductShoppingListService>();
 
 var app = builder.Build();
 
