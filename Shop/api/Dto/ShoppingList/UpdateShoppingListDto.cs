@@ -2,5 +2,5 @@
 
 public class UpdateShoppingListDto
 {
-    public int Name { get; set; }
+    public string Name { get; set; }
 }

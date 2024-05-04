@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using api.Mappers;
 using api.Models;
 using api.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -25,19 +26,20 @@ public class ShoppingListController : ControllerBase
     public async Task<IActionResult> GetAll()
     {
         var user = GetSendingUser();
+        if (user == null)
+        {
+            return BadRequest("user not found");
+        }
         var shoppingLists = await _shoppingListService.GetAllAsync(user);
         
-        return Ok(shoppingLists);
+        return Ok(shoppingLists.Select(sl => sl.ToShoppingListDto()));
     }
 
 
 
-    private AppUser GetSendingUser()
+    private AppUser? GetSendingUser()
     {
-        return new AppUser
-        {
-            UserName = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value,
-            Email = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.GivenName)?.Value
-        };
+        var username = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
+        return _userManager.Users.FirstOrDefault(u => u.Email == username);
     }
 }
