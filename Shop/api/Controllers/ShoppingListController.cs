@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using api.Dto.ShoppingList;
 using api.Mappers;
 using api.Models;
 using api.Services;
@@ -55,6 +56,19 @@ public class ShoppingListController : ControllerBase
         return Ok(shoppingList.ToShoppingListDto());
     }
 
+    [HttpPost]
+    public async Task<IActionResult> Create([FromBody] CreateShoppingListDto shoppingListDto)
+    {
+        var user = GetSendingUser();
+        if (user == null)
+        {
+            return BadRequest("user not found");
+        }
+        
+        var newShoppingList = shoppingListDto.ToShoppingListFromCreateDto();
+        var inMemoryList = await _shoppingListService.CreateAsync(user, newShoppingList);
+        return CreatedAtAction(nameof(GetById), new { id = newShoppingList.Id }, inMemoryList.ToShoppingListDto());
+    }
 
 
     private AppUser? GetSendingUser()
