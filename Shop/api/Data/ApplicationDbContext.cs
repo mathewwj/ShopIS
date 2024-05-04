@@ -1,16 +1,15 @@
 ﻿using api.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace api.Data;
 
-public class ApplicationDbContext : DbContext
+public class ApplicationDbContext : IdentityDbContext<AppUser>
 {
     public DbSet<Category> Categories { get; set; }
     public DbSet<Product> Products { get; set; }
     public DbSet<Shelf> Shelves { get; set; }
-
-    // public DbSet<ShelfProduct> ShelfProducts { get; set; }
     
     public ApplicationDbContext(DbContextOptions dbContextOptions) : base(dbContextOptions) { }
     
@@ -29,13 +28,13 @@ public class ApplicationDbContext : DbContext
         {
             new()
             {
-                Name = "Admin",
-                NormalizedName = "ADMIN"
+                Name = nameof(UserRole.Admin),
+                NormalizedName = nameof(UserRole.Admin).ToUpper()
             },
             new()
             {
-                Name = "User",
-                NormalizedName = "USER"
+                Name = nameof(UserRole.User),
+                NormalizedName = nameof(UserRole.User).ToUpper()
             }
         };
         builder.Entity<IdentityRole>().HasData(roles);

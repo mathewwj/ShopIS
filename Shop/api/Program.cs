@@ -80,11 +80,18 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-// TODO
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy(nameof(UserPolicy.Admin), policy => policy.RequireRole(nameof(UserRole.Admin)));
+    options.AddPolicy(nameof(UserPolicy.User), policy => policy.RequireAuthenticatedUser());
+});
+
+
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IShelfService, ShelfService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IPathService, PathService>();
+builder.Services.AddScoped<ITokenService, TokenService>();
 
 var app = builder.Build();
 
