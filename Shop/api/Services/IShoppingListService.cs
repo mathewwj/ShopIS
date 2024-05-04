@@ -9,7 +9,6 @@ public interface IShoppingListService
 
     Task<ShoppingList> CreateAsync(AppUser appUser, ShoppingList shoppingList);
     Task<ShoppingList?> UpdateAsync(AppUser appUser, int id, ShoppingList shoppingList);
-    Task<ShoppingList?> UpdateProductsAsync(AppUser appUser, int id, List<Product> shoppingList);
     Task<ShoppingList?> DeleteAsync(AppUser appUser, int id);
 
     Task<bool> IsExistsAsync(AppUser appUser, int id);

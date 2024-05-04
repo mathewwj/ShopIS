@@ -59,35 +59,26 @@ public class ShoppingListService : IShoppingListService
         }
 
         inMemoryList.Name = shoppingList.Name;
-        await _context.SaveChangesAsync();
+        var products = shoppingList.JoinProductShoppingLists;
         
-        return inMemoryList;
-    }
-
-    public async Task<ShoppingList?> UpdateProductsAsync(AppUser appUser, int id, List<Product> shoppingList)
-    {
-        var inMemoryList = await GetByIdAsync(appUser, id);
-        if (inMemoryList == null)
+        // check exists all
+        foreach (var product in products)
         {
-            return null;
-        }
-
-        foreach (var product in shoppingList)
-        {
-            if (!await _productService.IsExistsAsync(product.Id))
+            if (!await _productService.IsExistsAsync(product.ProductId))
             {
                 return null;
             }
         }
         
         _context.JoinProductShoppingLists.RemoveRange(inMemoryList.JoinProductShoppingLists);
-
-        foreach (var product in shoppingList)
+        foreach (var product in products)
         {
-            await _joinService.AddProductToShoppingList(inMemoryList.Id, product.Id);
+            await _joinService.AddProductToShoppingList(inMemoryList.Id, product.ProductId);
         }
-
+        
+        
         await _context.SaveChangesAsync();
+        
         return inMemoryList;
     }
 

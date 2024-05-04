@@ -30,6 +30,7 @@ public static class ShoppingListMapper
         return new ShoppingList
         {
             Name = dto.Name,
+            JoinProductShoppingLists = dto.ProductDtos.Select(p => new JoinProductShoppingList{ProductId = p.Id}).ToList()
         };
     }
     
