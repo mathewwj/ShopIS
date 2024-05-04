@@ -84,6 +84,21 @@ public class ShoppingListController : ControllerBase
         return inMemoryList == null ? NotFound() : Ok(inMemoryList.ToShoppingListDto());
     }
 
+    [HttpDelete]
+    [Route("{id:int}")]
+    public async Task<IActionResult> Delete([FromRoute] int id)
+    {
+        var user = GetSendingUser();
+        if (user == null)
+        {
+            return BadRequest("user not found");
+        }
+        
+        var inMemoryList = await _shoppingListService.DeleteAsync(user, id);
+
+        return inMemoryList == null? NotFound(): NoContent();
+    }
+    
     private AppUser? GetSendingUser()
     {
         var username = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
