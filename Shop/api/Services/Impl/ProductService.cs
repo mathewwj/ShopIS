@@ -25,7 +25,10 @@ public class ProductService : IProductService
 
     public async Task<Product> CreateAsync(Product product)
     {
-        product.ShelfId = await _context.Shelves.Where(x => x.IsInWarehouse).Select(x => x.Id).FirstOrDefaultAsync();
+        product.ShelfId = await _context.Shelves
+            .Where(x => x.IsInWarehouse)
+            .Select(x => x.Id)
+            .FirstOrDefaultAsync();
 
         await _context.Products.AddAsync(product);
         await _context.SaveChangesAsync();

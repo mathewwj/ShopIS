@@ -62,6 +62,16 @@ public class ShelfService : IShelfService
             return null;
         }
 
+        var moveToShelfId = await _context.Shelves
+            .Where(x => x.IsInWarehouse)
+            .Select(x => x.Id)
+            .FirstOrDefaultAsync();
+
+        foreach (var product in inMemoryShelf.Products)
+        {
+            product.ShelfId = moveToShelfId;
+        }
+        
         _context.Shelves.Remove(inMemoryShelf);
         await _context.SaveChangesAsync();
         return inMemoryShelf;
