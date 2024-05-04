@@ -3,6 +3,7 @@ using api.Mappers;
 using api.Models;
 using api.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -33,6 +34,25 @@ public class ShoppingListController : ControllerBase
         var shoppingLists = await _shoppingListService.GetAllAsync(user);
         
         return Ok(shoppingLists.Select(sl => sl.ToShoppingListDto()));
+    }
+    
+    [HttpPost]
+    [Authorize]
+    [Route("{id:int}")]
+    public async Task<IActionResult> GetById([FromRoute] int id)
+    {
+        var user = GetSendingUser();
+        if (user == null)
+        {
+            return BadRequest("user not found");
+        }
+        var shoppingList = await _shoppingListService.GetByIdAsync(user, id);
+        if (shoppingList == null)
+        {
+            return NotFound();
+        }
+        
+        return Ok(shoppingList.ToShoppingListDto());
     }
 
 
