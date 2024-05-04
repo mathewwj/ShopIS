@@ -1,4 +1,6 @@
 ﻿using api.Data;
+using api.Migrations;
+using api.Models;
 using Microsoft.EntityFrameworkCore;
 using SVGUtils;
 
@@ -19,20 +21,55 @@ public class PathService : IPathService
     }
 
     // TODO async
-    public string GetSvgPath(List<int> productIds)
+    public string GetSvgPath(ShoppingList shoppingList)
     {
+        var map = AbsoluteToRelativeShelfId();
+        
+        var productIds = shoppingList.JoinProductShoppingLists.Select(jp => jp.Product.Id).ToList();
+        
         var shelfIds = _context.Products
-            .Include(p => p.ShelfId)
             .Where(p => productIds.Contains(p.Id))
             .Select(p => p.ShelfId)
+            .Select(id => map[id])
             .ToList();
         
         _mapManager.LoadMap(MAP_PATH);
         
-        var name = TEMP_PATH + "a";
+        var name = TEMP_PATH + "out.svg";
         _mapManager.CreatePath(name, shelfIds);
         
         return File.ReadAllText(name);
         
+    }
+
+    private Dictionary<int, int> AbsoluteToRelativeShelfId()
+    {
+        Dictionary<int, int> mapper = new();
+
+        var shift = 0;
+        var last = int.MinValue;
+
+        foreach (var shelf in _context.Shelves)
+        {
+            if (last == int.MinValue)
+            {
+                last = shelf.Id - 1;
+            }
+
+            shift += shelf.Id - last - 1;
+            
+            if (shelf.IsInWarehouse)
+            {
+                shift++;
+            }
+            else
+            {
+                mapper.Add(shelf.Id, shelf.Id - shift);
+            }
+            last = shelf.Id;
+        }
+        
+
+        return mapper;
     }
 }

@@ -36,7 +36,7 @@ public class ShoppingListController : ControllerBase
         return Ok(shoppingLists.Select(sl => sl.ToShoppingListDto()));
     }
     
-    [HttpPost]
+    [HttpGet]
     [Authorize]
     [Route("{id:int}")]
     public async Task<IActionResult> GetById([FromRoute] int id)

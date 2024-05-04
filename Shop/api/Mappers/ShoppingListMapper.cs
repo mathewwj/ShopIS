@@ -15,6 +15,24 @@ public static class ShoppingListMapper
             ProductDtos = shoppingList.JoinProductShoppingLists.Select(j => j.Product.ToProductDto()).ToList()
         };
     }
+    public static ShoppingList ToShoppingListFromDto(this ShoppingListDto shoppingListDto)
+    {
+        return new ShoppingList
+        {
+            Id = shoppingListDto.Id,
+            Name = shoppingListDto.Name,
+            CreatedTime = shoppingListDto.CreatedTime,
+            JoinProductShoppingLists = shoppingListDto.ProductDtos.Select(pd =>
+                {
+                    var product = pd.ToProductFromDto();
+                    return new JoinProductShoppingList
+                    {
+                        Product = product,
+                        ProductId = product.Id
+                    };
+                }).ToList()
+        };
+    }
 
     public static ShoppingList ToShoppingListFromCreateDto(this CreateShoppingListDto dto)
     {

@@ -46,6 +46,7 @@ public static class ProductMapper
     {
         return new Product
         {
+            Id = productDto.Id,
             Name = productDto.Name,
             CategoryId = productDto.CategoryDto.Id,
             Category = productDto.CategoryDto.ToCategoryFromDto(),

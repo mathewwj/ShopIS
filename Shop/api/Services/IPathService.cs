@@ -4,5 +4,5 @@ namespace api.Services;
 
 public interface IPathService
 {
-    string GetSvgPath(List<int> productIds);
+    string GetSvgPath(ShoppingList shoppingList);
 }

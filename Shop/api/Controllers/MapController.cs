@@ -1,4 +1,7 @@
-﻿using api.Services;
+﻿using api.Dto.ShoppingList;
+using api.Mappers;
+using api.Models;
+using api.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controllers;
@@ -15,9 +18,9 @@ public class MapController : ControllerBase
     }
 
     [HttpPost]
-    public ActionResult GetMap([FromBody] List<int> productIds)
+    public ActionResult GetMap([FromBody] ShoppingListDto shoppingListDto)
     {
-        string content = _pathService.GetSvgPath(productIds);
+        string content = _pathService.GetSvgPath(shoppingListDto.ToShoppingListFromDto());
         return Content(content, "image/svg+xml");
     }
 }
