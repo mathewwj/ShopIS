@@ -19,11 +19,46 @@ public class ProductController : ControllerBase
     }
     
     [HttpGet]
-    public async Task<IActionResult> GetAll()
+    public async Task<IActionResult> GetAll([FromQuery] ProductQuery query)
     {
         var products = await _productService.GetAllAsync();
-        var categoriesDto = products.Select(c => c.ToProductDto());
-        return Ok(categoriesDto);
+
+        
+        if (!string.IsNullOrWhiteSpace(query.Name))
+        {
+            products = products.Where(p => p.Name.Contains(query.Name, StringComparison.OrdinalIgnoreCase)).ToList();
+        }
+        if (query.CategoryId != null)
+        {
+            products = products.Where(p => p.CategoryId == query.CategoryId).ToList();
+        }
+        if (query.PriceLower != null)
+        {
+            products = products.Where(p => p.Price >= query.PriceLower).ToList();
+        }
+        if (query.PriceUpper != null)
+        {
+            products = products.Where(p => p.Price <= query.PriceUpper).ToList();
+        }
+
+        if (!string.IsNullOrWhiteSpace(query.SortBy))
+        {
+            if (query.SortBy.Equals("Name", StringComparison.OrdinalIgnoreCase))
+            {
+                products = query.IsDescending
+                    ? products.OrderByDescending(p => p.Name).ToList()
+                    : products.OrderBy(p => p.Name).ToList();
+            }
+            if (query.SortBy.Equals("Price", StringComparison.OrdinalIgnoreCase))
+            {
+                products = query.IsDescending
+                    ? products.OrderByDescending(p => p.Price).ToList()
+                    : products.OrderBy(p => p.Price).ToList();
+            }
+        }
+        
+        var productDtos = products.Select(c => c.ToProductDto());
+        return Ok(productDtos);
     }
     
     [HttpGet]
