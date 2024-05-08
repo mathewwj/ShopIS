@@ -56,6 +56,7 @@ public class ShoppingListController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize]
     public async Task<IActionResult> Create([FromBody] CreateShoppingListDto shoppingListDto)
     {
         var user = GetSendingUser();
@@ -71,6 +72,7 @@ public class ShoppingListController : ControllerBase
 
     [HttpPut]
     [Route("{id:int}")]
+    [Authorize]
     public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateShoppingListDto dto)
     {
         var user = GetSendingUser();
@@ -85,6 +87,7 @@ public class ShoppingListController : ControllerBase
 
     [HttpDelete]
     [Route("{id:int}")]
+    [Authorize]
     public async Task<IActionResult> Delete([FromRoute] int id)
     {
         var user = GetSendingUser();

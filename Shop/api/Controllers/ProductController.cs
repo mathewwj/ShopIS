@@ -1,6 +1,7 @@
 ﻿using api.Dto.Product;
 using api.Mappers;
 using api.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controllers;
@@ -72,9 +73,9 @@ public class ProductController : ControllerBase
         }
         return Ok(inMemoryProduct.ToProductDto());
     }
- 
-    // TODO fix create return null category
+    
     [HttpPost]
+    [Authorize]
     public async Task<IActionResult> Create([FromBody] CreateProductDto productDto)
     {
         var newProduct = productDto.ToProductFromCreateDto();
@@ -84,6 +85,7 @@ public class ProductController : ControllerBase
     
     [HttpPut]
     [Route("{id:int}")]
+    [Authorize]
     public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateProductDto productDto)
     {
         var toUpdateProduct = productDto.ToProductFromUpdateDto();
@@ -99,6 +101,7 @@ public class ProductController : ControllerBase
     
     [HttpDelete]
     [Route("{id:int}")]
+    [Authorize]
     public async Task<IActionResult> Delete([FromRoute] int id)
     {
         var inMemoryProduct = await _productService.DeleteAsync(id);

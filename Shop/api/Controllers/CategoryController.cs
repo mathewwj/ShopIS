@@ -1,6 +1,7 @@
 ﻿using api.Dto.Category;
 using api.Mappers;
 using api.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controllers;
@@ -38,6 +39,7 @@ public class CategoryController : ControllerBase
     }
     
     [HttpPost]
+    [Authorize]
     public async Task<IActionResult> Create([FromBody] CreateCategoryDto categoryDto)
     {
         var newCategory = categoryDto.ToCategoryFromCreateDto();
@@ -47,6 +49,7 @@ public class CategoryController : ControllerBase
 
     [HttpPut]
     [Route("{id:int}")]
+    [Authorize]
     public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateCategoryDto categoryDto)
     {
         var inMemoryCategory = await _categoryService.UpdateAsync(id, categoryDto.ToCategoryFromUpdateDto());
@@ -56,6 +59,7 @@ public class CategoryController : ControllerBase
 
     [HttpDelete]
     [Route("{id:int}")]
+    [Authorize]
     public async Task<IActionResult> Delete([FromRoute] int id)
     {
         var inMemoryCategory = await _categoryService.DeleteAsync(id);

@@ -2,6 +2,7 @@
 using api.Mappers;
 using api.Models;
 using api.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controllers;
@@ -18,6 +19,7 @@ public class MapController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize]
     public ActionResult GetMap([FromBody] ShoppingListDto shoppingListDto)
     {
         string content = _pathService.GetSvgPath(shoppingListDto.ToShoppingListFromDto());

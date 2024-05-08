@@ -2,6 +2,7 @@
 using api.Dto.Shelf;
 using api.Mappers;
 using api.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controllers;
@@ -40,6 +41,7 @@ public class ShelfController : ControllerBase
     }
     
     [HttpPost]
+    [Authorize]
     public async Task<IActionResult> Create([FromBody] CreateShelfDto shelfDto)
     {
         var newShelf = shelfDto.ToShelfFromCreateDto();
@@ -50,6 +52,7 @@ public class ShelfController : ControllerBase
 
     [HttpPut]
     [Route("{id:int}")]
+    [Authorize]
     public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateShelfDto shelfDto)
     {
         var toUpdateShelf = shelfDto.ToShelfFromUpdateDto();
@@ -59,6 +62,7 @@ public class ShelfController : ControllerBase
     }
     
     [HttpPatch("{shelfId}/move")]
+    [Authorize]
     public async Task<IActionResult> MoveProduct(int shelfId, int toShelfId, int productId)
     {
         if (!await _productService.IsExistsAsync(productId) || 
@@ -77,6 +81,7 @@ public class ShelfController : ControllerBase
 
     [HttpDelete]
     [Route("{id:int}")]
+    [Authorize]
     public async Task<IActionResult> Delete([FromRoute] int id)
     {
         var inMemoryShelf = await _shelfService.DeleteAsync(id);

@@ -1,5 +1,4 @@
-﻿using System.Security.Claims;
-using api.Dto.Account;
+﻿using api.Dto.Account;
 using api.Models;
 using api.Services;
 using Microsoft.AspNetCore.Identity;
