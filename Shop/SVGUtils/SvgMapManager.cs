@@ -16,11 +16,11 @@ public class SvgMapManager: ISvgMapManager
 
         var pathLayer = xDocument.Descendants()
             .FirstOrDefault(e => e.Name.LocalName == "g" && 
-                                 (string) e.Attribute("id") == "Paths");
+                                 (string) e.Attribute("id")! == "Paths");
         var regalLayer = xDocument.Descendants()
             .FirstOrDefault(e => e.Name.LocalName == "g" && 
-                                 (string) e.Attribute("id") == "Regals");
-        _graph = ParseGraph(pathLayer.Elements(), regalLayer.Elements());
+                                 (string) e.Attribute("id")! == "Regals");
+        _graph = ParseGraph(pathLayer!.Elements(), regalLayer!.Elements());
     }
 
     public void CreatePath(string outputPath, IEnumerable<int> shelfIds)
@@ -30,13 +30,13 @@ public class SvgMapManager: ISvgMapManager
         var xDocument = XDocument.Load(_pathFile); 
         var pathLayer = xDocument.Descendants()
             .FirstOrDefault(e => e.Name.LocalName == "g" && 
-                                 (string) e.Attribute("id") == "Paths");
+                                 (string) e.Attribute("id")! == "Paths");
         
-        foreach (var element in pathLayer.Elements())
+        foreach (var element in pathLayer!.Elements())
         {
-            if (path.FirstOrDefault(x => x.Id.Equals((string)element.Attribute("id"))) == null)
+            if (path.FirstOrDefault(x => x.Id.Equals((string)element.Attribute("id")!)) == null)
             {
-                element.SetAttributeValue("style", ChangeStrokeColor(element.Attribute("style").Value, "none"));
+                element.SetAttributeValue("style", ChangeStrokeColor(element.Attribute("style")!.Value, "none"));
             }
         }
         xDocument.Save(outputPath);
@@ -47,16 +47,16 @@ public class SvgMapManager: ISvgMapManager
     }
     static string ChangeStrokeColor(string styleAttr, string newColor)
     {
-        int startIndex = styleAttr.IndexOf("stroke:");
+        var startIndex = styleAttr.IndexOf("stroke:", StringComparison.Ordinal);
         if (startIndex == -1)
             return styleAttr;
 
         startIndex += 7;
-        int endIndex = styleAttr.IndexOf(";", startIndex);
+        var endIndex = styleAttr.IndexOf(';', startIndex);
         if (endIndex == -1)
             endIndex = styleAttr.Length;
         
-        string oldColor = styleAttr.Substring(startIndex, endIndex - startIndex);
+        var oldColor = styleAttr.Substring(startIndex, endIndex - startIndex);
         return styleAttr.Replace(oldColor, newColor);
     }    
     
@@ -73,11 +73,11 @@ public class SvgMapManager: ISvgMapManager
         var endPoints = points.Where(p => p.Edges.Count == 1).ToList();
         foreach (var regal in regals)
         {
-            var x0 = Double.Parse((string)regal.Attribute("x"));
-            var y0 = Double.Parse((string)regal.Attribute("y"));
-            var x1 = x0 + Double.Parse((string)regal.Attribute("width"));
-            var y1 = y0 + Double.Parse((string)regal.Attribute("height"));
-            var regalId = (string)regal.Attribute("id");
+            var x0 = Double.Parse((string)regal.Attribute("x")!);
+            var y0 = Double.Parse((string)regal.Attribute("y")!);
+            var x1 = x0 + Double.Parse((string)regal.Attribute("width")!);
+            var y1 = y0 + Double.Parse((string)regal.Attribute("height")!);
+            var regalId = (string)regal.Attribute("id")!;
             var tolerance = 1.0d;
 
             var inside = (Point p) => p.X >= x0 - tolerance && p.X <= x1 + tolerance &&
@@ -101,7 +101,7 @@ public class SvgMapManager: ISvgMapManager
         
         foreach (var path in paths)
         {
-            var movement = (string)path.Attribute("d");
+            var movement = (string)path.Attribute("d")!;
             ParseMovement(movement, out var start, out var end);
 
             if (points.TryGetValue(start, out var insideStart))
@@ -116,7 +116,7 @@ public class SvgMapManager: ISvgMapManager
 
             var edge = new Edge
             {
-                Id = (string)path.Attribute("id"),
+                Id = (string)path.Attribute("id")!,
                 Start = start,
                 End = end,
             };
