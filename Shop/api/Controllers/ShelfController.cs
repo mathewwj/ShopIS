@@ -1,6 +1,7 @@
 ﻿using api.Dto.Product;
 using api.Dto.Shelf;
 using api.Mappers;
+using api.Models;
 using api.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -13,11 +14,13 @@ public class ShelfController : ControllerBase
 {
     private readonly IShelfService _shelfService;
     private readonly IProductService _productService;
+    private readonly IAuthService _authService;
 
-    public ShelfController(IShelfService shelfService, ICategoryService categoryService, IProductService productService)
+    public ShelfController(IShelfService shelfService, ICategoryService categoryService, IProductService productService, IAuthService authService)
     {
         _shelfService = shelfService;
         _productService = productService;
+        _authService = authService;
     }
     
     [HttpGet]
@@ -44,6 +47,9 @@ public class ShelfController : ControllerBase
     [Authorize]
     public async Task<IActionResult> Create([FromBody] CreateShelfDto shelfDto)
     {
+        if (!await _authService.IsValidRole(User, UserRole.Admin))
+            return StatusCode(StatusCodes.Status403Forbidden, "You do not have permission to access this resource.");
+        
         var newShelf = shelfDto.ToShelfFromCreateDto();
         
         var inMemoryShelf = await _shelfService.CreateAsync(newShelf);
@@ -55,6 +61,9 @@ public class ShelfController : ControllerBase
     [Authorize]
     public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateShelfDto shelfDto)
     {
+        if (!await _authService.IsValidRole(User, UserRole.Admin))
+            return StatusCode(StatusCodes.Status403Forbidden, "You do not have permission to access this resource.");
+        
         var toUpdateShelf = shelfDto.ToShelfFromUpdateDto();
 
         var inMemoryShelf = await _shelfService.UpdateAsync(id, toUpdateShelf);
@@ -65,6 +74,9 @@ public class ShelfController : ControllerBase
     [Authorize]
     public async Task<IActionResult> MoveProduct(int shelfId, int toShelfId, int productId)
     {
+        if (!await _authService.IsValidRole(User, UserRole.Admin))
+            return StatusCode(StatusCodes.Status403Forbidden, "You do not have permission to access this resource.");
+        
         if (!await _productService.IsExistsAsync(productId) || 
             !await _shelfService.IsExistsAsync(toShelfId) ||
             !await _shelfService.IsExistsAsync(shelfId))
@@ -84,6 +96,9 @@ public class ShelfController : ControllerBase
     [Authorize]
     public async Task<IActionResult> Delete([FromRoute] int id)
     {
+        if (!await _authService.IsValidRole(User, UserRole.Admin))
+            return StatusCode(StatusCodes.Status403Forbidden, "You do not have permission to access this resource.");
+        
         var inMemoryShelf = await _shelfService.DeleteAsync(id);
 
         return inMemoryShelf == null? NotFound(): NoContent();

@@ -1,5 +1,6 @@
 ﻿using api.Dto.Product;
 using api.Mappers;
+using api.Models;
 using api.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -12,11 +13,13 @@ public class ProductController : ControllerBase
 {
     private readonly IProductService _productService;
     private readonly ICategoryService _categoryService;
+    private readonly IAuthService _authService;
 
-    public ProductController(IProductService productService, ICategoryService categoryService, IShelfService shelfService)
+    public ProductController(IProductService productService, ICategoryService categoryService, IShelfService shelfService, IAuthService authService)
     {
         _productService = productService;
         _categoryService = categoryService;
+        _authService = authService;
     }
     
     [HttpGet]
@@ -78,6 +81,9 @@ public class ProductController : ControllerBase
     [Authorize]
     public async Task<IActionResult> Create([FromBody] CreateProductDto productDto)
     {
+        if (!await _authService.IsValidRole(User, UserRole.Admin))
+            return StatusCode(StatusCodes.Status403Forbidden, "You do not have permission to access this resource.");
+        
         var newProduct = productDto.ToProductFromCreateDto();
         var inMemoryProduct = await _productService.CreateAsync(newProduct);
         return CreatedAtAction(nameof(GetById), new { id = inMemoryProduct.Id }, inMemoryProduct.ToProductDto());
@@ -88,6 +94,9 @@ public class ProductController : ControllerBase
     [Authorize]
     public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateProductDto productDto)
     {
+        if (!await _authService.IsValidRole(User, UserRole.Admin))
+            return StatusCode(StatusCodes.Status403Forbidden, "You do not have permission to access this resource.");
+        
         var toUpdateProduct = productDto.ToProductFromUpdateDto();
         
         if (!await _categoryService.IsExistsAsync(toUpdateProduct.CategoryId))
@@ -104,6 +113,9 @@ public class ProductController : ControllerBase
     [Authorize]
     public async Task<IActionResult> Delete([FromRoute] int id)
     {
+        if (!await _authService.IsValidRole(User, UserRole.Admin))
+            return StatusCode(StatusCodes.Status403Forbidden, "You do not have permission to access this resource.");
+        
         var inMemoryProduct = await _productService.DeleteAsync(id);
 
         return inMemoryProduct == null? NotFound(): NoContent();

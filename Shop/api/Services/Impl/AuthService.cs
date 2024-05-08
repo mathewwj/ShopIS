@@ -24,7 +24,12 @@ public class AuthService : IAuthService
 
         var roles = await _userManager.GetRolesAsync(user);
 
-        return roles.Contains(nameof(role));
+        return roles.Contains(role.ToString());
+    }
+
+    public async Task<bool> IsValidRole(ClaimsPrincipal user, UserRole role)
+    {
+        return await IsValidRole(await GetAppUser(user), role);
     }
 
     public async Task<AppUser?> GetAppUser(ClaimsPrincipal user)

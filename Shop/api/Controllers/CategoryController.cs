@@ -1,5 +1,6 @@
 ﻿using api.Dto.Category;
 using api.Mappers;
+using api.Models;
 using api.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -11,10 +12,12 @@ namespace api.Controllers;
 public class CategoryController : ControllerBase
 {
     private readonly ICategoryService _categoryService;
+    private readonly IAuthService _authService;
 
-    public CategoryController(ICategoryService categoryService)
+    public CategoryController(ICategoryService categoryService, IAuthService authService)
     {
         _categoryService = categoryService;
+        _authService = authService;
     }
 
 
@@ -42,6 +45,9 @@ public class CategoryController : ControllerBase
     [Authorize]
     public async Task<IActionResult> Create([FromBody] CreateCategoryDto categoryDto)
     {
+        if (!await _authService.IsValidRole(User, UserRole.Admin))
+            return StatusCode(StatusCodes.Status403Forbidden, "You do not have permission to access this resource.");
+        
         var newCategory = categoryDto.ToCategoryFromCreateDto();
         var inMemoryCategory = await _categoryService.CreateAsync(newCategory);
         return CreatedAtAction(nameof(GetById), new { id = inMemoryCategory.Id }, inMemoryCategory.ToCategoryDto());
@@ -52,6 +58,9 @@ public class CategoryController : ControllerBase
     [Authorize]
     public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateCategoryDto categoryDto)
     {
+        if (!await _authService.IsValidRole(User, UserRole.Admin))
+            return StatusCode(StatusCodes.Status403Forbidden, "You do not have permission to access this resource.");
+
         var inMemoryCategory = await _categoryService.UpdateAsync(id, categoryDto.ToCategoryFromUpdateDto());
         
         return inMemoryCategory == null? NotFound(): Ok(inMemoryCategory.ToCategoryDto());
@@ -62,6 +71,9 @@ public class CategoryController : ControllerBase
     [Authorize]
     public async Task<IActionResult> Delete([FromRoute] int id)
     {
+        if (!await _authService.IsValidRole(User, UserRole.Admin))
+            return StatusCode(StatusCodes.Status403Forbidden, "You do not have permission to access this resource.");
+
         var inMemoryCategory = await _categoryService.DeleteAsync(id);
 
         return inMemoryCategory == null? NotFound(): NoContent();
