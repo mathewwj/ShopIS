@@ -1,8 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Xml.Linq;
-using SVGUtils;
-using SVGUtils.Models;
+﻿namespace SVGUtils;
 
 class Program
 {
