@@ -73,10 +73,10 @@ public class SvgMapManager: ISvgMapManager
         var endPoints = points.Where(p => p.Edges.Count == 1).ToList();
         foreach (var regal in regals)
         {
-            var x0 = Double.Parse((string)regal.Attribute("x")!);
-            var y0 = Double.Parse((string)regal.Attribute("y")!);
-            var x1 = x0 + Double.Parse((string)regal.Attribute("width")!);
-            var y1 = y0 + Double.Parse((string)regal.Attribute("height")!);
+            var x0 = double.Parse((string)regal.Attribute("x")!);
+            var y0 = double.Parse((string)regal.Attribute("y")!);
+            var x1 = x0 + double.Parse((string)regal.Attribute("width")!);
+            var y1 = y0 + double.Parse((string)regal.Attribute("height")!);
             var regalId = (string)regal.Attribute("id")!;
             var tolerance = 1.0d;
 
