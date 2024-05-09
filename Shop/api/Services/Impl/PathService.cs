@@ -37,36 +37,21 @@ public class PathService : IPathService
         return fileContent;
         
     }
-
-    // TODO start with one!!!
+    
     private Dictionary<int, int> AbsoluteToRelativeShelfId()
     {
         Dictionary<int, int> mapper = new();
+        int mappedVal = 1;
 
-        var shift = 0;
-        var last = int.MinValue;
-
-        foreach (var shelf in _context.Shelves)
+        foreach (var shelf in _context.Shelves.OrderBy(s => s.Id))
         {
-            if (last == int.MinValue)
-            {
-                last = shelf.Id - 1;
-            }
-
-            shift += shelf.Id - last - 1;
-            
             if (shelf.IsInWarehouse)
-            {
-                shift++;
-            }
-            else
-            {
-                mapper.Add(shelf.Id, shelf.Id - shift);
-            }
-            last = shelf.Id;
+                continue;
+
+            mapper.Add(shelf.Id, mappedVal);
+            mappedVal++;
         }
         
-
         return mapper;
     }
 }

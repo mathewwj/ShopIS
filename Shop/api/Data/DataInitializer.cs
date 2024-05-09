@@ -103,11 +103,11 @@ public class DataInitializer
         var shelf04 = new Shelf { Name = "Meat", IsInWarehouse = false, Products = new List<Product> { pChicken, pBeef } };
         var shelf05 = new Shelf { Name = "Spices", IsInWarehouse = false, Products = new List<Product> { pSalt, pPepper } };
         var shelf06 = new Shelf { Name = "Sweets", IsInWarehouse = false, Products = new List<Product> { pChocolate, pCandy } };
-        var shelf07 = new Shelf { Name = "Frozen foods", IsInWarehouse = false, Products = new List<Product> { pIceCream, pPizza } };
+        var shelf07 = new Shelf { Name = "Frozen foods", IsInWarehouse = false, Products = new List<Product> { pIceCream, pPizza, pFrenchFries } };
         var shelf08 = new Shelf { Name = "Other", IsInWarehouse = false, Products = new List<Product> { pFish, pShrimp } };
         var shelf09 = new Shelf { Name = "Greens", IsInWarehouse = false, Products = new List<Product> { pSpinach, pCabbage } };
         var shelf10 = new Shelf { Name = "Fruits and veggies", IsInWarehouse = false, Products = new List<Product> { pLemon, pPear, pGrape, pTomato, pLettuce, pBrusselsSprouts } };
-        var shelf11 = new Shelf { Name = "Dairy and meats", IsInWarehouse = false, Products = new List<Product> { pButter, pYogurtDrink, pTurkey, pPork } };
+        var shelf11 = new Shelf { Name = "Dairy and meats", IsInWarehouse = false, Products = new List<Product> { pButter, pYogurtDrink, pTurkey, pPork, pYogurt } };
         var shelf12 = new Shelf { Name = "Baking", IsInWarehouse = false, Products = new List<Product> { pCumin, pCinnamon } };
         var shelf13 = new Shelf { Name = "Treats", IsInWarehouse = false, Products = new List<Product> { pCaramel, pToffee } };
         var shelf14 = new Shelf { Name = "Chilled desserts", IsInWarehouse = false, Products = new List<Product> { pPopsicle, pLasagna } };
