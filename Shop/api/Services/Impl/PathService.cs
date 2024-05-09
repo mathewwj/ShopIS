@@ -34,11 +34,9 @@ public class PathService : IPathService
             .ToList();
         
         _mapManager.LoadMap(MAP_PATH);
+        _mapManager.CreatePath(out var fileContent, shelfIds);
         
-        var name = TEMP_PATH + "out.svg";
-        _mapManager.CreatePath(name, shelfIds);
-        
-        return File.ReadAllText(name);
+        return fileContent;
         
     }
 

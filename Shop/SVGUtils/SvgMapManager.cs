@@ -25,6 +25,12 @@ public class SvgMapManager: ISvgMapManager
 
     public void CreatePath(string outputPath, IEnumerable<int> shelfIds)
     {
+        CreatePath(out var fileContent, shelfIds);
+        File.WriteAllText(outputPath, fileContent);
+    }
+
+    public void CreatePath(out string fileContent, IEnumerable<int> shelfIds)
+    {
         var path = _graph.GetPath(shelfIds);
         
         var xDocument = XDocument.Load(_pathFile); 
@@ -39,13 +45,12 @@ public class SvgMapManager: ISvgMapManager
                 element.SetAttributeValue("style", ChangeStrokeColor(element.Attribute("style")!.Value, "none"));
             }
         }
-        xDocument.Save(outputPath);
         
-        var content = File.ReadAllText(outputPath);
-        var modifiedContent = content.Replace("<svg:", "<").Replace("</svg:", "</");
-        File.WriteAllText(outputPath, modifiedContent);
+        var content = xDocument.ToString();
+        fileContent = content.Replace("<svg:", "<").Replace("</svg:", "</");
     }
-    static string ChangeStrokeColor(string styleAttr, string newColor)
+
+    private static string ChangeStrokeColor(string styleAttr, string newColor)
     {
         var startIndex = styleAttr.IndexOf("stroke:", StringComparison.Ordinal);
         if (startIndex == -1)
