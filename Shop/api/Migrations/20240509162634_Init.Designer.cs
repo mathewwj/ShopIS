@@ -12,8 +12,8 @@ using api.Data;
 namespace api.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240504171713_UserIdBack")]
-    partial class UserIdBack
+    [Migration("20240509162634_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -54,13 +54,13 @@ namespace api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "cf9343bb-dc00-4947-821f-8e1b99d4d60d",
+                            Id = "02d56d6a-69a3-4023-99b2-b006526da1bf",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "d4d14ad2-6c59-4244-9b5c-055bc5efcc58",
+                            Id = "953b79c4-c6b7-4326-8d47-010e8e47dfdb",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -315,18 +315,14 @@ namespace api.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Capacity")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
                     b.Property<bool>("IsInWarehouse")
                         .HasColumnType("bit");
 
-                    b.HasKey("Id");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasIndex("CategoryId");
+                    b.HasKey("Id");
 
                     b.ToTable("shelf");
                 });
@@ -446,17 +442,6 @@ namespace api.Migrations
                     b.Navigation("Shelf");
                 });
 
-            modelBuilder.Entity("api.Models.Shelf", b =>
-                {
-                    b.HasOne("api.Models.Category", "Category")
-                        .WithMany("Shelves")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Category");
-                });
-
             modelBuilder.Entity("api.Models.ShoppingList", b =>
                 {
                     b.HasOne("api.Models.AppUser", "AppUser")
@@ -476,8 +461,6 @@ namespace api.Migrations
             modelBuilder.Entity("api.Models.Category", b =>
                 {
                     b.Navigation("Products");
-
-                    b.Navigation("Shelves");
                 });
 
             modelBuilder.Entity("api.Models.Product", b =>

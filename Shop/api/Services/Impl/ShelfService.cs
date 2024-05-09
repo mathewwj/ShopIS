@@ -92,8 +92,7 @@ public class ShelfService : IShelfService
             return false;
         }
 
-        fromShelf.Products.Remove(product);
-        toShelf.Products.Add(product);
+        product.ShelfId = toShelf.Id;
         await _context.SaveChangesAsync();
         return true;
     }

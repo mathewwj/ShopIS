@@ -66,6 +66,20 @@ namespace api.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "shelf",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsInWarehouse = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_shelf", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -177,7 +191,7 @@ namespace api.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AppUserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
@@ -188,27 +202,6 @@ namespace api.Migrations
                         name: "FK_shopping_list_AspNetUsers_AppUserId",
                         column: x => x.AppUserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "shelf",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Capacity = table.Column<int>(type: "int", nullable: false),
-                    IsInWarehouse = table.Column<bool>(type: "bit", nullable: false),
-                    CategoryId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_shelf", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_shelf_categories_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "categories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -272,8 +265,8 @@ namespace api.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "48c2cd50-0d83-44df-b14f-e39457ec202d", null, "User", "USER" },
-                    { "77ce546f-fc84-42d0-93a6-dc3f98f80200", null, "Admin", "ADMIN" }
+                    { "02d56d6a-69a3-4023-99b2-b006526da1bf", null, "Admin", "ADMIN" },
+                    { "953b79c4-c6b7-4326-8d47-010e8e47dfdb", null, "User", "USER" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -331,11 +324,6 @@ namespace api.Migrations
                 column: "ShelfId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_shelf_CategoryId",
-                table: "shelf",
-                column: "CategoryId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_shopping_list_AppUserId",
                 table: "shopping_list",
                 column: "AppUserId");
@@ -372,13 +360,13 @@ namespace api.Migrations
                 name: "shopping_list");
 
             migrationBuilder.DropTable(
+                name: "categories");
+
+            migrationBuilder.DropTable(
                 name: "shelf");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "categories");
         }
     }
 }

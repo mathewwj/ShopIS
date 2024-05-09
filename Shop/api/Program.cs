@@ -47,9 +47,11 @@ builder.Services.AddControllers().AddNewtonsoftJson(options => {
     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
 });
 
-builder.Services.AddDbContext<ApplicationDbContext>(
-    options =>  options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
-);
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    options.EnableSensitiveDataLogging();
+});
 builder.Services.AddIdentity<AppUser, IdentityRole>(options => {
     options.Password.RequireDigit = true;
     options.Password.RequireLowercase = true;
@@ -95,9 +97,17 @@ builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IJoinProductShoppingListService, JoinProductShoppingListService>();
 builder.Services.AddScoped<IShoppingListService, ShoppingListService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<DataInitializer>();
 builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
+
+if (app.Configuration["DataInitialization"] == "true")
+{
+    using var serviceScope = app.Services.CreateScope();
+    var initializer = serviceScope.ServiceProvider.GetRequiredService<DataInitializer>();
+    await initializer.Initialize();
+}
 
 if (app.Environment.IsDevelopment())
 {

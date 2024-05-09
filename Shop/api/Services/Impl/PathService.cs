@@ -1,5 +1,4 @@
 ﻿using api.Data;
-using api.Migrations;
 using api.Models;
 using SVGUtils;
 using Microsoft.EntityFrameworkCore;
@@ -39,6 +38,7 @@ public class PathService : IPathService
         
     }
 
+    // TODO start with one!!!
     private Dictionary<int, int> AbsoluteToRelativeShelfId()
     {
         Dictionary<int, int> mapper = new();
