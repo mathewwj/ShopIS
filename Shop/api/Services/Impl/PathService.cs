@@ -19,19 +19,18 @@ public class PathService : IPathService
         _context = context;
         _mapManager = new SvgMapManager();
     }
-
-    // TODO async
-    public string GetSvgPath(ShoppingList shoppingList)
+    
+    public async Task<string> GetSvgPath(ShoppingList shoppingList)
     {
         var map = AbsoluteToRelativeShelfId();
         
         var productIds = shoppingList.JoinProductShoppingLists.Select(jp => jp.Product.Id).ToList();
         
-        var shelfIds = _context.Products
+        var shelfIds = await _context.Products
             .Where(p => productIds.Contains(p.Id))
             .Select(p => p.ShelfId)
             .Select(id => map[id])
-            .ToList();
+            .ToListAsync();
         
         _mapManager.LoadMap(MAP_PATH);
         _mapManager.CreatePath(out var fileContent, shelfIds);

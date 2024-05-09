@@ -1,6 +1,5 @@
 ﻿using api.Dto.ShoppingList;
 using api.Mappers;
-using api.Models;
 using api.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -20,9 +19,9 @@ public class MapController : ControllerBase
 
     [HttpPost]
     [Authorize]
-    public ActionResult GetMap([FromBody] ShoppingListDto shoppingListDto)
+    public async Task<ActionResult> GetMap([FromBody] ShoppingListDto shoppingListDto)
     {
-        string content = _pathService.GetSvgPath(shoppingListDto.ToShoppingListFromDto());
+        var content = await _pathService.GetSvgPath(shoppingListDto.ToShoppingListFromDto());
         return Content(content, "image/svg+xml");
     }
 }
