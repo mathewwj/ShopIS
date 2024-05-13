@@ -11,7 +11,6 @@ docker-compose up
 - Init SQL server (only once)
 ```bash
 docker ps
-choose docker
 docker exec -it <container_hash> /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P Heslo.123
 ```
 - Create the database (only once)
