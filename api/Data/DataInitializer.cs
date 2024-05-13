@@ -134,7 +134,7 @@ public class DataInitializer
         await _userManager.CreateAsync(admin, "Heslo.123");
         await _userManager.AddToRoleAsync(admin, nameof(UserRole.Admin));
         
-        var user = new AppUser { UserName = "peto", Email = "peto@gmail.com"};
+        var user = new AppUser { UserName = "matus", Email = "matus@gmail.com"};
         await _userManager.CreateAsync(user, "Heslo.123");
         await _userManager.AddToRoleAsync(user, nameof(UserRole.User));
 
