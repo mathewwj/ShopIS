@@ -12,7 +12,7 @@ ENV ASPNETCORE_ENVIRONMENT=Development
 
 # Build stage
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-WORKDIR /src
+# WORKDIR /src
 ADD api/Temp/floor_plan.svg /app/Data/floor_plan.svg
 COPY ["api/api.csproj", "api/"]
 COPY ["SVGUtils/SVGUtils.csproj", "SVGUtils/"]
