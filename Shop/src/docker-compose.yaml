@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  sql_server:
+    build:
+      context: .
+      dockerfile: Dockerfile-mssql
+    ports:
+      - "1433:1433"
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "Heslo.123" # Change this password to your desired one
+    volumes:
+      - sql_data:/var/opt/mssql
+
+  api:
+    image: api
+    build:
+      context: .
+      dockerfile: api/Dockerfile
+    ports:
+      - 5263:5263
+      - 5281:5281
+      - 1668:1668
+      - 7170:7170
+    depends_on:
+      - sql_server
+
+volumes:
+  sql_data:
