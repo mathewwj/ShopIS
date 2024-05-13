@@ -1,4 +1,4 @@
-# ASP .NET Rest API endpoint shooping application
+# ASP .NET Rest API endpoint shopping application
 ------------------------------------------
 
 ## Setup
