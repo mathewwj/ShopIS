@@ -1,7 +1,9 @@
+using api;
 using api.Data;
 using api.Models;
 using api.Services;
 using api.Services.Impl;
+using CommandLine;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -101,12 +103,26 @@ builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
-if (app.Configuration["DataInitialization"] == "true")
+// COMMAND LINE PARSER
+var parser = new Parser(with =>
 {
-    using var serviceScope = app.Services.CreateScope();
-    var initializer = serviceScope.ServiceProvider.GetRequiredService<DataInitializer>();
-    await initializer.Initialize();
-}
+    with.EnableDashDash = true;
+    with.CaseInsensitiveEnumValues = true;
+    with.HelpWriter = Console.Out;
+});
+
+var result = parser.ParseArguments<CommandLineOptions>(args);
+
+await result.WithParsedAsync(async options =>
+{
+    if (options.InitData)
+    {
+        using var serviceScope = app.Services.CreateScope();
+        var initializer = serviceScope.ServiceProvider.GetRequiredService<DataInitializer>();
+        await initializer.Initialize();
+    }
+});
+
 
 if (app.Environment.IsDevelopment())
 {
