@@ -8,18 +8,8 @@
 docker-compose up
 ```
 - Open second command line
-- Init SQL server (only once)
-```bash
-docker ps
-docker exec -it <container_hash> /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P Heslo.123
-```
-- Create the database (only once)
-```SQL
-CREATE DATABASE shop_database
-GO
-```
 - Move to `api` folder
-- Init database with schema (only once - after execution, you can leave DB terminal)
+- Init database with schema (only once)
 ```bash
 dotnet ef database update
 ```
