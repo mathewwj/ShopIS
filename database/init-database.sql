@@ -1,0 +1,2 @@
+CREATE DATABASE shop_database
+GO
